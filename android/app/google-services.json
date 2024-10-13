@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "447061470523",
+    "project_id": "healthcare-algorix",
+    "storage_bucket": "healthcare-algorix.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:447061470523:android:131adb205ebe2091bb1b1e",
+        "android_client_info": {
+          "package_name": "com.algorixit.doctor"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAes54Ncb1zcVhF3alfYqBVWSo4AtE_qUY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:447061470523:android:d0de23ad045bc2d6bb1b1e",
+        "android_client_info": {
+          "package_name": "com.example.dental_care"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAes54Ncb1zcVhF3alfYqBVWSo4AtE_qUY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
