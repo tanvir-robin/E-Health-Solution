@@ -1,9 +1,10 @@
 import 'dart:io';
-
+import 'package:dental_care/doctor_panel/chat/doctor_chat.dart';
 import 'package:dental_care/doctor_panel/components/pescription_pdf.dart';
 import 'package:dental_care/globals.dart';
 import 'package:dental_care/helpers.dart';
 import 'package:dental_care/models/AvailableDoctor.dart';
+import 'package:dental_care/screens/chat/chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
@@ -44,6 +45,21 @@ class DoctorAppointmentsScreen extends StatelessWidget {
           );
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChatScreen(
+                doctorId: loggedInDoctor!.id, // Use the global doctor variable
+                patientId: "", // Pass the patient ID if available
+              ),
+            ),
+          );
+        },
+        child: Icon(Icons.chat),
+        backgroundColor: Colors.blue,
+      ),
     );
   }
 
@@ -71,13 +87,14 @@ class DoctorAppointmentsScreen extends StatelessWidget {
               children: [
                 Text(
                   patient['username'] ?? "Unknown Patient",
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
-                SizedBox(height: 4), // Add some space between texts
+                const SizedBox(height: 4),
                 Text("Complaint: ${appointment['complaint']}"),
-                SizedBox(height: 4), // Add some space between texts
-                Text("Date: ${appointment['dateTime'].toDate()}"),
-                SizedBox(height: 8),
+                const SizedBox(height: 4),
+                Text(
+                    "Date: ${DateFormat("dd MMM, yyyy - hh:mm a").format(appointment['dateTime'].toDate())}"),
+                const SizedBox(height: 8),
                 Align(
                   alignment: Alignment.centerRight,
                   child: ElevatedButton(
@@ -86,17 +103,36 @@ class DoctorAppointmentsScreen extends StatelessWidget {
                     child: Text("Past Appointments"),
                   ),
                 ),
-                // Add some space before the button
-
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 10),
                 Align(
                   alignment: Alignment.centerRight,
                   child: ElevatedButton(
                     onPressed: () =>
                         _showPrescriptionDialog(context, appointment.id),
                     child: Text("Prescribe Now"),
+                  ),
+                ),
+                const Divider(color: Colors.grey),
+                const SizedBox(height: 10),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DoctorChatScreen(
+                            name: patient['username'],
+                            patientId: patientDocID, // Pass the patient ID
+                          ),
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      foregroundColor: Colors.white,
+                    ),
+                    child: Text("Chat with Patient"),
                   ),
                 ),
               ],
@@ -126,7 +162,6 @@ class DoctorAppointmentsScreen extends StatelessWidget {
           actions: [
             TextButton(
               onPressed: () {
-                // Close the dialog
                 Navigator.pop(context);
               },
               child: Text("Cancel"),
@@ -149,7 +184,6 @@ class DoctorAppointmentsScreen extends StatelessWidget {
     final appointmentsCollection =
         FirebaseFirestore.instance.collection('appointments');
 
-    // Get patient email for sending the prescription
     final appointment = await appointmentsCollection.doc(appointmentId).get();
     final patientDocID = appointment['patientDocID'];
     final patientSnapshot = await FirebaseFirestore.instance
@@ -158,7 +192,6 @@ class DoctorAppointmentsScreen extends StatelessWidget {
         .get();
     final patientEmail = patientSnapshot['email'];
 
-    // Find the doctor using the doctorId
     final doctorId = appointment['doctorId'] as int?;
     final doctor = demoAvailableDoctors.firstWhere((doc) => doc.id == doctorId,
         orElse: () => AvailableDoctor(
@@ -171,23 +204,19 @@ class DoctorAppointmentsScreen extends StatelessWidget {
             email: "",
             password: ""));
 
-    // Update Firestore with the prescription
     await appointmentsCollection.doc(appointmentId).update({
       'prescription': prescription,
       'status': 'prescribed',
     }).then((_) async {
       print("Prescription added successfully!");
 
-      // Generate PDF with prescription details
       File pdfFile = await generatePrescriptionPDF(
-        patientSnapshot[
-            'username'], // Assuming the patient's name is stored as 'username'
+        patientSnapshot['username'],
         appointment['complaint'],
         doctor.name,
-        prescription, // Pass the prescription details here
+        prescription,
       );
 
-      // Send prescription email
       final emailService = EmailService();
       await emailService.sendPrescriptionEmail(
           patientEmail, pdfFile, patientSnapshot['username']);
@@ -240,7 +269,6 @@ class DoctorAppointmentsScreen extends StatelessWidget {
                             ? appointment['prescription']
                             : "N/A";
 
-                    // Find the doctor using the doctorId
                     final doctorId = appointment['doctorId'] as int?;
                     final doctor = demoAvailableDoctors.firstWhere(
                         (doc) => doc.id == doctorId,

@@ -1,6 +1,9 @@
+import 'package:dental_care/screens/chat/all_chat.dart';
 import 'package:dental_care/screens/search/search_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 import '../constants.dart';
 
@@ -35,17 +38,19 @@ class CustomAppBar extends StatelessWidget {
             ),
           ),
           Spacer(),
+          // IconButton(
+          //   onPressed: () => Navigator.push(
+          //     context,
+          //     MaterialPageRoute(
+          //       builder: (context) => SearchScreen(),
+          //     ),
+          //   ),
+          //   icon: SvgPicture.asset("assets/icons/Serach.svg"),
+          // ),
           IconButton(
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => SearchScreen(),
-              ),
-            ),
-            icon: SvgPicture.asset("assets/icons/Serach.svg"),
-          ),
-          IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.to(() => ChatListScreen());
+            },
             icon: SvgPicture.asset("assets/icons/Chat.svg"),
           ),
         ],

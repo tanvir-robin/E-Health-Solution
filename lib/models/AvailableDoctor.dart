@@ -23,7 +23,7 @@ class AvailableDoctor {
 List<AvailableDoctor> demoAvailableDoctors = [
   AvailableDoctor(
     id: 1,
-    name: "Dr. Serena Gome",
+    name: "Dr. Sumaiya Rahamn",
     sector: "Medicine Specialist",
     experience: 8,
     patients: '1.08K',

@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dental_care/screens/chat/chat_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:dental_care/constants.dart';
+
+// Assuming you have the ChatScreen defined somewhere in your project
 
 class AvailableDoctor {
   final int id;
@@ -24,7 +27,7 @@ class AvailableDoctor {
 List<AvailableDoctor> demoAvailableDoctors = [
   AvailableDoctor(
     id: 1,
-    name: "Dr. Serena Gome",
+    name: "Dr. Sumaiya Rahamn",
     sector: "Medicine Specialist",
     experience: 8,
     patients: '1.08K',
@@ -72,7 +75,7 @@ class MyAppointmentScreen extends StatelessWidget {
         .collection('appointments')
         .where('patientDocID',
             isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-        .orderBy('createdAt')
+        .orderBy('createdAt', descending: true)
         .snapshots()
         .map((snapshot) => snapshot.docs.map((doc) {
               final data = doc.data() as Map<String, dynamic>;
@@ -210,7 +213,6 @@ class MyAppointmentScreen extends StatelessWidget {
                 bool isCancelled = appointmentStatus == 'Cancelled';
                 bool isCancellable = (appointmentStatus == 'pending' ||
                     appointmentStatus == 'Upcoming');
-                bool isPrescribed = appointmentStatus == 'prescribed';
 
                 return Container(
                   margin: EdgeInsets.only(bottom: defaultPadding),
@@ -286,36 +288,41 @@ class MyAppointmentScreen extends StatelessWidget {
                             child: buildAppointmentInfo("Place", "City Clinic"),
                           ),
                           Expanded(
-                            child: isCancelled
-                                ? Text(
-                                    "Cancelled",
-                                    style: TextStyle(color: Colors.red),
+                            child: Column(
+                              children: [
+                                // Show the Cancel button if the appointment is future
+                                if (!isExpired && isCancellable)
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      _cancelAppointment(
+                                          context, appointment['id']);
+                                    },
+                                    style: TextButton.styleFrom(
+                                        backgroundColor: redColor),
+                                    child: Text("Cancel"),
                                   )
-                                : isExpired
-                                    ? Text(
-                                        "Expired",
-                                        style: TextStyle(color: Colors.red),
-                                      )
-                                    : isCancellable
-                                        ? ElevatedButton(
-                                            onPressed: () {
-                                              _cancelAppointment(
-                                                  context, appointment['id']);
-                                            },
-                                            style: TextButton.styleFrom(
-                                                backgroundColor: redColor),
-                                            child: Text("Cancel"),
-                                          )
-                                        : isPrescribed
-                                            ? ElevatedButton(
-                                                onPressed: () {
-                                                  _showPrescription(context,
-                                                      appointment['id']);
-                                                },
-                                                child:
-                                                    Text('View Prescription'),
-                                              )
-                                            : SizedBox.shrink(),
+                                // Show the Chat button if the appointment is expired
+                                else if (isExpired)
+                                  ElevatedButton.icon(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => ChatScreen(
+                                            doctorId: doctorId,
+                                            patientId: FirebaseAuth
+                                                .instance.currentUser!.uid,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    icon: Icon(Icons.chat),
+                                    label: Text('Chat'),
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.blue),
+                                  ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -330,21 +337,22 @@ class MyAppointmentScreen extends StatelessWidget {
     );
   }
 
-  Column buildAppointmentInfo(String title, String text) {
+  Widget buildAppointmentInfo(String title, String info) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           title,
           style: TextStyle(
-            fontSize: 12,
-            color: textColor.withOpacity(0.62),
+            color: Colors.black54,
           ),
         ),
+        SizedBox(height: 4),
         Text(
-          text,
-          maxLines: 1,
-          style: TextStyle(fontWeight: FontWeight.w600),
+          info,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ],
     );

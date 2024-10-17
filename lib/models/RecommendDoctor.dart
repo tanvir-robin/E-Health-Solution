@@ -17,7 +17,7 @@ const List<RecommendedDoctor> demo_recommended_doctor = [
     image: "assets/images/Salina_Zaman.png",
   ),
   RecommendedDoctor(
-    name: "Dr. Serena Gome",
+    name: "Dr. Sumaiya Rahamn",
     speciality: "Medicine Specialist ",
     institute: "Good Health Clinic",
     image: "assets/images/Serena_Gome.png",
