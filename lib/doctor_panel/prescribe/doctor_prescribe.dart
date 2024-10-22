@@ -10,7 +10,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
 class DoctorAppointmentsScreen extends StatelessWidget {
-  const DoctorAppointmentsScreen({Key? key}) : super(key: key);
+  const DoctorAppointmentsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class DoctorAppointmentsScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("My Appointments"),
+        title: const Text("My Appointments"),
         backgroundColor: Colors.blue,
       ),
       body: StreamBuilder<QuerySnapshot>(
@@ -29,7 +29,7 @@ class DoctorAppointmentsScreen extends StatelessWidget {
             .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
 
           final appointments = snapshot.data!.docs;
@@ -57,8 +57,8 @@ class DoctorAppointmentsScreen extends StatelessWidget {
             ),
           );
         },
-        child: Icon(Icons.chat),
         backgroundColor: Colors.blue,
+        child: Icon(Icons.chat),
       ),
     );
   }
@@ -100,7 +100,7 @@ class DoctorAppointmentsScreen extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () =>
                         _showPastRecords(context, appointment['patientDocID']),
-                    child: Text("Past Appointments"),
+                    child: const Text("Past Appointments"),
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -109,7 +109,7 @@ class DoctorAppointmentsScreen extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () =>
                         _showPrescriptionDialog(context, appointment.id),
-                    child: Text("Prescribe Now"),
+                    child: const Text("Prescribe Now"),
                   ),
                 ),
                 const Divider(color: Colors.grey),
@@ -132,7 +132,7 @@ class DoctorAppointmentsScreen extends StatelessWidget {
                       backgroundColor: Colors.blue,
                       foregroundColor: Colors.white,
                     ),
-                    child: Text("Chat with Patient"),
+                    child: const Text("Chat with Patient"),
                   ),
                 ),
               ],
@@ -164,7 +164,7 @@ class DoctorAppointmentsScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Text("Cancel"),
+              child: const Text("Cancel"),
             ),
             TextButton(
               onPressed: () {
@@ -172,7 +172,7 @@ class DoctorAppointmentsScreen extends StatelessWidget {
                     appointmentId, prescriptionController.text);
                 Navigator.pop(context);
               },
-              child: Text("Send"),
+              child: const Text("Send"),
             ),
           ],
         );
@@ -195,6 +195,7 @@ class DoctorAppointmentsScreen extends StatelessWidget {
     final doctorId = appointment['doctorId'] as int?;
     final doctor = demoAvailableDoctors.firstWhere((doc) => doc.id == doctorId,
         orElse: () => AvailableDoctor(
+            degrees: '',
             id: 0,
             name: "Unknown Doctor",
             sector: "N/A",
@@ -273,6 +274,7 @@ class DoctorAppointmentsScreen extends StatelessWidget {
                     final doctor = demoAvailableDoctors.firstWhere(
                         (doc) => doc.id == doctorId,
                         orElse: () => AvailableDoctor(
+                            degrees: '',
                             id: 0,
                             name: "Unknown Doctor",
                             sector: "N/A",

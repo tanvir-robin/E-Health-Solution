@@ -8,7 +8,7 @@ import 'package:flutter/services.dart';
 class OtpScreen extends StatefulWidget {
   final String recipientEmail;
 
-  const OtpScreen({Key? key, required this.recipientEmail}) : super(key: key);
+  const OtpScreen({super.key, required this.recipientEmail});
 
   @override
   _OtpScreenState createState() => _OtpScreenState();
@@ -131,7 +131,7 @@ class _OtpScreenState extends State<OtpScreen> {
 class OtpForm extends StatefulWidget {
   final Function(String) onOtpChanged;
 
-  const OtpForm({Key? key, required this.onOtpChanged}) : super(key: key);
+  const OtpForm({super.key, required this.onOtpChanged});
 
   @override
   _OtpFormState createState() => _OtpFormState();
@@ -188,8 +188,8 @@ class _OtpFormState extends State<OtpForm> {
                 String otp = _controllers.map((c) => c.text).join();
                 widget.onOtpChanged(otp);
               },
-              decoration: InputDecoration(
-                border: const OutlineInputBorder(),
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
               ),
             ),
           );

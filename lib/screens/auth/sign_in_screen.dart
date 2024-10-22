@@ -7,12 +7,14 @@ import 'package:get/route_manager.dart';
 import 'components/sign_in_form.dart';
 
 class SignInScreen extends StatelessWidget {
+  const SignInScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: EdgeInsets.all(defaultPadding),
+          padding: const EdgeInsets.all(defaultPadding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -25,7 +27,7 @@ class SignInScreen extends StatelessWidget {
               ),
               Row(
                 children: [
-                  Text("Don’n have an account?"),
+                  const Text("Don’n have an account?"),
                   TextButton(
                     onPressed: () => Navigator.push(
                       context,
@@ -33,7 +35,7 @@ class SignInScreen extends StatelessWidget {
                         builder: (context) => SignUpScreen(),
                       ),
                     ),
-                    child: Text("Sign up!"),
+                    child: const Text("Sign up!"),
                   )
                 ],
               ),

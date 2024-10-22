@@ -9,10 +9,10 @@ class ChatScreen extends StatefulWidget {
   final String patientId;
 
   const ChatScreen({
-    Key? key,
+    super.key,
     required this.doctorId,
     required this.patientId,
-  }) : super(key: key);
+  });
 
   @override
   _ChatScreenState createState() => _ChatScreenState();
@@ -27,6 +27,7 @@ class _ChatScreenState extends State<ChatScreen> {
     AvailableDoctor? doctor = demoAvailableDoctors.firstWhere(
       (doctor) => doctor.id == widget.doctorId,
       orElse: () => AvailableDoctor(
+        degrees: '',
         id: widget.doctorId,
         name: "Unknown Doctor",
         sector: "",
@@ -113,7 +114,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 }
 
                 // Check if there's a conversation for this doctor-patient pair
@@ -127,7 +128,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 }
 
                 if (conversationDoc == null) {
-                  return Center(child: Text('No messages yet'));
+                  return const Center(child: Text('No messages yet'));
                 }
 
                 // Stream messages for this specific conversation
@@ -140,12 +141,12 @@ class _ChatScreenState extends State<ChatScreen> {
                   builder: (context, messageSnapshot) {
                     if (messageSnapshot.connectionState ==
                         ConnectionState.waiting) {
-                      return Center(child: CircularProgressIndicator());
+                      return const Center(child: CircularProgressIndicator());
                     }
 
                     if (!messageSnapshot.hasData ||
                         messageSnapshot.data!.docs.isEmpty) {
-                      return Center(child: Text('No messages yet'));
+                      return const Center(child: Text('No messages yet'));
                     }
 
                     var messages = messageSnapshot.data!.docs;
@@ -158,7 +159,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
                         if (message == null ||
                             !message.containsKey('senderId')) {
-                          return ListTile(
+                          return const ListTile(
                             title: Text('Message with missing senderId'),
                           );
                         }
@@ -172,7 +173,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                 ? Alignment.centerRight
                                 : Alignment.centerLeft,
                             child: Container(
-                              padding: EdgeInsets.all(8),
+                              padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
                                 color:
                                     isMe ? Colors.blue[100] : Colors.grey[300],
@@ -185,12 +186,12 @@ class _ChatScreenState extends State<ChatScreen> {
                                 children: [
                                   Text(
                                     message['message'] ?? 'No message content',
-                                    style: TextStyle(fontSize: 16),
+                                    style: const TextStyle(fontSize: 16),
                                   ),
-                                  SizedBox(height: 4),
+                                  const SizedBox(height: 4),
                                   Text(
                                     _formatTimestamp(message['timestamp']),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 12, color: Colors.grey),
                                   ),
                                 ],
@@ -206,17 +207,18 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(8),
+            padding: const EdgeInsets.all(8),
             child: Row(
               children: [
                 Expanded(
                   child: TextField(
                     controller: _messageController,
-                    decoration: InputDecoration(hintText: 'Type a message'),
+                    decoration:
+                        const InputDecoration(hintText: 'Type a message'),
                   ),
                 ),
                 IconButton(
-                  icon: Icon(Icons.send),
+                  icon: const Icon(Icons.send),
                   onPressed: () => _sendMessage(_messageController.text),
                 ),
               ],

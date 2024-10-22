@@ -7,8 +7,8 @@ import '../../../constants.dart';
 
 class AvailableDoctors extends StatelessWidget {
   const AvailableDoctors({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

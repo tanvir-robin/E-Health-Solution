@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  const ProfileScreen({super.key});
 
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
@@ -52,16 +52,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Profile"),
+        title: const Text("Profile"),
         actions: [
           IconButton(
             onPressed: () => Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => SettingsScreen(),
+                builder: (context) => const SettingsScreen(),
               ),
             ),
-            icon: Icon(
+            icon: const Icon(
               Icons.settings,
               color: primaryColor,
             ),
@@ -69,9 +69,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ],
       ),
       body: isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
-              padding: EdgeInsets.all(defaultPadding),
+              padding: const EdgeInsets.all(defaultPadding),
               child: Column(
                 children: [
                   ClipRRect(
@@ -83,7 +83,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       width: 120,
                     ),
                   ),
-                  SizedBox(height: defaultPadding),
+                  const SizedBox(height: defaultPadding),
                   Form(
                     child: Column(
                       children: [
@@ -121,7 +121,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         Center(
                           child: ElevatedButton(
-                            child: Text('Sign Out'),
+                            child: const Text('Sign Out'),
                             onPressed: () {
                               FirebaseAuth.instance.signOut();
                               Navigator.pushReplacement(

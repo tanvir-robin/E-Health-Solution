@@ -8,7 +8,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import '../../constants.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
+  const MainScreen({super.key});
 
   @override
   _MainScreenState createState() => _MainScreenState();
@@ -17,9 +17,9 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   final List<Widget> _pages = [
     HomePage(),
-    DoctorsScreen(),
-    MyAppointmentScreen(),
-    ProfileScreen(),
+    const DoctorsScreen(),
+    const MyAppointmentScreen(),
+    const ProfileScreen(),
   ];
   int _selectedPage = 0;
   @override
@@ -27,24 +27,24 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       body: _pages[_selectedPage],
       bottomNavigationBar: Container(
-        padding: EdgeInsets.all(defaultPadding),
+        padding: const EdgeInsets.all(defaultPadding),
         color: Colors.white,
         child: SafeArea(
           child: GNav(
             haptic: true,
             tabBorderRadius: 15,
             curve: Curves.ease,
-            duration: Duration(milliseconds: 350),
+            duration: const Duration(milliseconds: 350),
             gap: 8,
             color: Colors.grey[800],
             activeColor: Colors.white,
             iconSize: 24,
             tabBackgroundColor: primaryColor,
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: defaultPadding,
               vertical: defaultPadding / 2,
             ),
-            tabs: [
+            tabs: const [
               GButton(
                 icon: Icons.home,
                 text: 'Home',

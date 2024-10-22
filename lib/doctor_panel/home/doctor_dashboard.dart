@@ -1,3 +1,4 @@
+import 'package:dental_care/doctor_panel/chat/all_chat_doctor.dart';
 import 'package:dental_care/doctor_panel/prescribe/doctor_prescribe.dart';
 import 'package:dental_care/globals.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -6,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DoctorPanelScreen extends StatelessWidget {
-  const DoctorPanelScreen({Key? key}) : super(key: key);
+  const DoctorPanelScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +20,16 @@ class DoctorPanelScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("My Dental Clinic"),
+        title: const Text("My Dental Clinic"),
         backgroundColor: Colors.blue,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.chat_sharp),
+            onPressed: () {
+              Get.to(() => DoctorAllMessages());
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -37,7 +46,7 @@ class DoctorPanelScreen extends StatelessWidget {
                 ),
                 child: Text(
                   "Hello, ${loggedInDoctor!.name}",
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 18),
@@ -46,7 +55,7 @@ class DoctorPanelScreen extends StatelessWidget {
               const SizedBox(height: 20),
 
               // Appointments Section
-              Text(
+              const Text(
                 "Appointments",
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
@@ -57,7 +66,7 @@ class DoctorPanelScreen extends StatelessWidget {
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   }
 
                   int todayCount = 0;
@@ -65,7 +74,7 @@ class DoctorPanelScreen extends StatelessWidget {
 
                   final now = DateTime.now();
                   final todayStart = DateTime(now.year, now.month, now.day);
-                  final tomorrowStart = todayStart.add(Duration(days: 1));
+                  final tomorrowStart = todayStart.add(const Duration(days: 1));
 
                   for (var doc in snapshot.data!.docs) {
                     uniquePatientIds.add(doc['patientDocID']);
@@ -90,15 +99,15 @@ class DoctorPanelScreen extends StatelessWidget {
                               todayCount.toString(), "Today")),
                       _buildAppointmentCard(
                           upcomingCount.toString(), "Upcoming"),
-                      Center(
-                        child: TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            "View Device Calendar",
-                            style: TextStyle(color: Colors.blue),
-                          ),
-                        ),
-                      ),
+                      // Center(
+                      //   child: TextButton(
+                      //     onPressed: () {},
+                      //     child: const Text(
+                      //       "View Device Calendar",
+                      //       style: TextStyle(color: Colors.blue),
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   );
                 },
@@ -106,7 +115,7 @@ class DoctorPanelScreen extends StatelessWidget {
               const SizedBox(height: 20),
 
               // Patients Section
-              Text(
+              const Text(
                 "Patients",
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
@@ -115,7 +124,7 @@ class DoctorPanelScreen extends StatelessWidget {
                 stream: patientsCollection.snapshots(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   }
 
                   final totalPatients = uniquePatientIds.length;
@@ -123,8 +132,8 @@ class DoctorPanelScreen extends StatelessWidget {
                     children: [
                       _buildPatientCard(
                           totalPatients.toString(), "Total Patients"),
-                      _buildPatientCard("0", "Total Patients for Re-call"),
-                      _buildPatientCard("0", "Upcoming Birthdays"),
+                      // _buildPatientCard("0", "Total Patients for Re-call"),
+                      // _buildPatientCard("0", "Upcoming Birthdays"),
                     ],
                   );
                 },
@@ -132,7 +141,7 @@ class DoctorPanelScreen extends StatelessWidget {
               const SizedBox(height: 20),
 
               // Shortcuts Section
-              Text(
+              const Text(
                 "Shortcuts",
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
@@ -140,9 +149,11 @@ class DoctorPanelScreen extends StatelessWidget {
               Wrap(
                 spacing: 10,
                 children: [
-                  _buildShortcutButton("Upgrade Now"),
-                  _buildShortcutButton("Add Payment"),
-                  _buildShortcutButton("Backup"),
+                  // _buildShortcutButton("Upgrade Now"),
+                  // _buildShortcutButton("Add Payment"),
+                  InkWell(
+                      onTap: () => Get.to(() => DoctorAllMessages()),
+                      child: _buildShortcutButton("Messages")),
                   InkWell(
                       onTap: () {
                         Get.to(() => SplashScreen());
@@ -162,9 +173,9 @@ class DoctorPanelScreen extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 5),
       child: ListTile(
-        title: Text(count, style: TextStyle(fontSize: 24)),
+        title: Text(count, style: const TextStyle(fontSize: 24)),
         subtitle: Text(title),
-        trailing: Icon(Icons.arrow_forward),
+        trailing: const Icon(Icons.arrow_forward),
       ),
     );
   }
@@ -173,25 +184,27 @@ class DoctorPanelScreen extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 5),
       child: ListTile(
-        title: Text(count, style: TextStyle(fontSize: 24)),
+        title: Text(count, style: const TextStyle(fontSize: 24)),
         subtitle: Text(title),
-        trailing: Icon(Icons.arrow_forward),
+        trailing: const Icon(Icons.arrow_forward),
       ),
     );
   }
 
   Widget _buildShortcutButton(String title) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: ElevatedButton(
-        onPressed: null,
-        child: Text(title),
-        style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-          backgroundColor: Colors.blue, // Background color
-          foregroundColor: Colors.white, // Text color
-        ),
-      ),
-    );
+        padding: const EdgeInsets.all(8.0),
+        child: ElevatedButton(
+          onPressed: null,
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+          ),
+          child: Text(
+            title,
+            style: const TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ));
   }
 }

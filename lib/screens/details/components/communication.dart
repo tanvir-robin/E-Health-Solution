@@ -5,8 +5,8 @@ import '../../../constants.dart';
 
 class Communication extends StatelessWidget {
   const Communication({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,35 +15,35 @@ class Communication extends StatelessWidget {
         Expanded(
           child: ElevatedButton.icon(
             style: TextButton.styleFrom(
-              padding: EdgeInsets.symmetric(vertical: 16),
-              backgroundColor: Color(0xFF51BEFB).withOpacity(0.75),
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              backgroundColor: const Color(0xFF51BEFB).withOpacity(0.75),
             ),
             onPressed: () {},
             icon: SvgPicture.asset("assets/icons/Call.svg"),
-            label: Text("Voice Call"),
+            label: const Text("Voice Call"),
           ),
         ),
-        SizedBox(width: defaultPadding / 2),
+        const SizedBox(width: defaultPadding / 2),
         Expanded(
           child: ElevatedButton.icon(
             style: TextButton.styleFrom(
-              padding: EdgeInsets.symmetric(vertical: 16),
-              backgroundColor: Color(0xFF7E51FB).withOpacity(0.75),
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              backgroundColor: const Color(0xFF7E51FB).withOpacity(0.75),
             ),
             onPressed: () {},
             icon: SvgPicture.asset(
               "assets/icons/Video.svg",
               width: 11,
             ),
-            label: Text("Video Call"),
+            label: const Text("Video Call"),
           ),
         ),
-        SizedBox(width: defaultPadding / 2),
+        const SizedBox(width: defaultPadding / 2),
         Expanded(
           child: ElevatedButton.icon(
             style: TextButton.styleFrom(
-              padding: EdgeInsets.symmetric(vertical: 16),
-              backgroundColor: Color(0xFFFBA351).withOpacity(0.75),
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              backgroundColor: const Color(0xFFFBA351).withOpacity(0.75),
             ),
             onPressed: () {},
             icon: SvgPicture.asset(
@@ -51,7 +51,7 @@ class Communication extends StatelessWidget {
               color: Colors.white,
               width: 11,
             ),
-            label: Text("Message"),
+            label: const Text("Message"),
           ),
         ),
       ],

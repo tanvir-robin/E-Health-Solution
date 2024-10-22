@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'components/docotor_card.dart';
 
 class DoctorsScreen extends StatelessWidget {
-  const DoctorsScreen({Key? key}) : super(key: key);
+  const DoctorsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,14 +16,14 @@ class DoctorsScreen extends StatelessWidget {
         child: SafeArea(
           child: Column(
             children: [
-              CustomAppBar(text: "Available", title: "Specialist"),
+              const CustomAppBar(text: "Available", title: "Specialist"),
               Padding(
                 padding: const EdgeInsets.all(defaultPadding),
                 child: GridView.builder(
                   shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   itemCount: demoAvailableDoctors.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     crossAxisSpacing: defaultPadding,
                     mainAxisSpacing: defaultPadding,

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dental_care/models/AvailableDoctor.dart';
 import 'package:dental_care/screens/chat/chat_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -6,69 +7,73 @@ import 'package:dental_care/constants.dart';
 
 // Assuming you have the ChatScreen defined somewhere in your project
 
-class AvailableDoctor {
-  final int id;
-  final String name;
-  final String sector;
-  final int experience;
-  final String patients;
-  final String image;
-
-  AvailableDoctor({
-    required this.id,
-    required this.name,
-    required this.sector,
-    required this.experience,
-    required this.patients,
-    required this.image,
-  });
-}
-
 List<AvailableDoctor> demoAvailableDoctors = [
   AvailableDoctor(
     id: 1,
-    name: "Dr. Sumaiya Rahamn",
-    sector: "Medicine Specialist",
+    name: "Dr. Md. Imran Hossain",
+    sector: "Orthodontist",
     experience: 8,
     patients: '1.08K',
-    image: "assets/images/Serena_Gome.png",
+    image: "assets/images/doc1.png",
+    degrees:
+        '''BDS (DU), PhD (Dental Surgery) France, MSS (Clinical) DU, MPH (USA),
+PGT (Orthodontic), PGT (OMS) BSMMU, Research Fellow & Surgeon (STRC Project, Smile Train, USA),
+Advanced Implantology (Thailand), Invisalign (Thailand & India),
+Advanced Training in Fixed Orthodontic Braces, Implantology & Laser Dentistry (India)''',
+    email: "doc1@gmail.com",
+    password: "password1",
   ),
   AvailableDoctor(
     id: 2,
-    name: "Dr. Asma Khan",
-    sector: "Medicine Specialist",
+    name: "Prof. Dr. B.A.K Azad",
+    sector: "OMS",
     experience: 5,
     patients: '2.7K',
-    image: "assets/images/Asma_Khan.png",
+    image: "assets/images/doc2.png",
+    degrees: '''BDS, DDS, MCPS, MDS (London), FICP (America)''',
+    email: "doc2@gmail.com",
+    password: "password2",
   ),
   AvailableDoctor(
     id: 3,
-    name: "Dr. Kiran Shakia",
-    sector: "Medicine Specialist",
+    name: "Dr. Proshenjit Sarker",
+    sector: "OMS, Endodontist",
     experience: 5,
     patients: '2.7K',
-    image: "assets/images/Kiran_Shakia.png",
+    image: "assets/images/doc3.png",
+    degrees:
+        '''BDS (Dhaka Dental College), PGT (Oral & Maxillofacial Surgery), PGT (Conservative & Endodontics),
+PGT (Prosthodontics), Specialized Training on Dental Implant (DGME),
+Specialized Training on Aesthetic Dentistry (DGHS), Training On Cross Infection (DGHS)''',
+    email: "doc3@gmail.comm",
+    password: "password3",
   ),
   AvailableDoctor(
     id: 4,
-    name: "Dr. Masuda Khan",
-    sector: "Medicine Specialist",
+    name: "Dr. Roksana Begum",
+    sector: "Pedodontist, DPH",
     experience: 5,
     patients: '2.7K',
-    image: "assets/images/Masuda_Khan.png",
+    image: "assets/images/doc4.png",
+    degrees: '''BDS (DDC), PGT (MOHKSA)''',
+    email: "doc4@gmail.comm",
+    password: "password4",
   ),
   AvailableDoctor(
     id: 5,
-    name: "Dr. Johir Raihan",
-    sector: "Medicine Specialist",
+    name: "Dr. Farzana Anar",
+    sector: "Periodontist, Orthodontist",
     experience: 5,
     patients: '2.7K',
-    image: "assets/images/Johir_Raihan.png",
+    image: "assets/images/doc5.png",
+    degrees: '''BDS, FCPS, Conservative Dentistry & Endodontics Specialist''',
+    email: "doc5@gmail.com",
+    password: "password5",
   ),
 ];
 
 class MyAppointmentScreen extends StatelessWidget {
-  const MyAppointmentScreen({Key? key}) : super(key: key);
+  const MyAppointmentScreen({super.key});
 
   Stream<List<Map<String, dynamic>>> fetchAppointmentsStream() {
     return FirebaseFirestore.instance
@@ -78,7 +83,7 @@ class MyAppointmentScreen extends StatelessWidget {
         .orderBy('createdAt', descending: true)
         .snapshots()
         .map((snapshot) => snapshot.docs.map((doc) {
-              final data = doc.data() as Map<String, dynamic>;
+              final data = doc.data();
               return {
                 'id': doc.id,
                 ...data,
@@ -90,6 +95,9 @@ class MyAppointmentScreen extends StatelessWidget {
     return demoAvailableDoctors.firstWhere(
       (doc) => doc.id == doctorId,
       orElse: () => AvailableDoctor(
+        password: '',
+        email: '',
+        degrees: '',
         id: 0,
         name: "Unknown Doctor",
         sector: "",
@@ -110,7 +118,7 @@ class MyAppointmentScreen extends StatelessWidget {
       showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (context) => Center(child: CircularProgressIndicator()),
+        builder: (context) => const Center(child: CircularProgressIndicator()),
       );
 
       await FirebaseFirestore.instance
@@ -121,7 +129,7 @@ class MyAppointmentScreen extends StatelessWidget {
       Navigator.of(context).pop();
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Appointment cancelled successfully!')),
+        const SnackBar(content: Text('Appointment cancelled successfully!')),
       );
     } catch (e) {
       Navigator.of(context).pop();
@@ -146,11 +154,11 @@ class MyAppointmentScreen extends StatelessWidget {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text('Prescription'),
+            title: const Text('Prescription'),
             content: SingleChildScrollView(
               child: Text(
                 prescription,
-                style: TextStyle(fontSize: 16),
+                style: const TextStyle(fontSize: 16),
               ),
             ),
             actions: [
@@ -158,14 +166,14 @@ class MyAppointmentScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text('Close'),
+                child: const Text('Close'),
               ),
             ],
           ),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
               content: Text('No prescription found for this appointment.')),
         );
       }
@@ -180,26 +188,26 @@ class MyAppointmentScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("My Appointments"),
+        title: const Text("My Appointments"),
       ),
       body: SafeArea(
         child: StreamBuilder<List<Map<String, dynamic>>>(
           stream: fetchAppointmentsStream(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             }
             if (snapshot.hasError) {
-              return Center(child: Text("Error fetching appointments"));
+              return const Center(child: Text("Error fetching appointments"));
             }
             if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return Center(child: Text("No appointments available"));
+              return const Center(child: Text("No appointments available"));
             }
 
             final appointments = snapshot.data!;
 
             return ListView.builder(
-              padding: EdgeInsets.all(defaultPadding),
+              padding: const EdgeInsets.all(defaultPadding),
               itemCount: appointments.length,
               itemBuilder: (context, index) {
                 final appointment = appointments[index];
@@ -208,16 +216,17 @@ class MyAppointmentScreen extends StatelessWidget {
                 final appointmentDate =
                     (appointment['dateTime'] as Timestamp).toDate();
                 final appointmentStatus = appointment['status'];
-
+                bool isPescribed =
+                    appointment['status'] == 'prescribed' ? true : false;
                 bool isExpired = DateTime.now().isAfter(appointmentDate);
                 bool isCancelled = appointmentStatus == 'Cancelled';
                 bool isCancellable = (appointmentStatus == 'pending' ||
                     appointmentStatus == 'Upcoming');
 
                 return Container(
-                  margin: EdgeInsets.only(bottom: defaultPadding),
-                  padding: EdgeInsets.all(defaultPadding),
-                  decoration: BoxDecoration(
+                  margin: const EdgeInsets.only(bottom: defaultPadding),
+                  padding: const EdgeInsets.all(defaultPadding),
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius:
                         BorderRadius.all(Radius.circular(defaultPadding / 2)),
@@ -231,14 +240,14 @@ class MyAppointmentScreen extends StatelessWidget {
                             backgroundImage: AssetImage(doctor.image),
                             backgroundColor: Colors.grey[200],
                           ),
-                          SizedBox(width: defaultPadding),
+                          const SizedBox(width: defaultPadding),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   doctor.name,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
                                   ),
@@ -262,7 +271,7 @@ class MyAppointmentScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(height: defaultPadding),
+                      const SizedBox(height: defaultPadding),
                       Row(
                         children: [
                           Expanded(
@@ -278,7 +287,7 @@ class MyAppointmentScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Divider(height: defaultPadding * 2),
+                      const Divider(height: defaultPadding * 2),
                       Row(
                         children: [
                           Expanded(
@@ -299,10 +308,10 @@ class MyAppointmentScreen extends StatelessWidget {
                                     },
                                     style: TextButton.styleFrom(
                                         backgroundColor: redColor),
-                                    child: Text("Cancel"),
+                                    child: const Text("Cancel"),
                                   )
                                 // Show the Chat button if the appointment is expired
-                                else if (isExpired)
+                                else
                                   ElevatedButton.icon(
                                     onPressed: () {
                                       Navigator.push(
@@ -316,8 +325,8 @@ class MyAppointmentScreen extends StatelessWidget {
                                         ),
                                       );
                                     },
-                                    icon: Icon(Icons.chat),
-                                    label: Text('Chat'),
+                                    icon: const Icon(Icons.chat),
+                                    label: const Text('Chat'),
                                     style: ElevatedButton.styleFrom(
                                         backgroundColor: Colors.blue),
                                   ),
@@ -343,14 +352,14 @@ class MyAppointmentScreen extends StatelessWidget {
       children: [
         Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.black54,
           ),
         ),
-        SizedBox(height: 4),
+        const SizedBox(height: 4),
         Text(
           info,
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
           ),
         ),

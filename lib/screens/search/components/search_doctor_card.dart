@@ -6,10 +6,10 @@ import '../../../constants.dart';
 
 class SearchDoctorCard extends StatelessWidget {
   const SearchDoctorCard({
-    Key? key,
+    super.key,
     required this.info,
     required this.press,
-  }) : super(key: key);
+  });
 
   final SearchDoctor info;
   final VoidCallback press;
@@ -17,14 +17,14 @@ class SearchDoctorCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: defaultPadding),
-      decoration: BoxDecoration(
+      margin: const EdgeInsets.only(bottom: defaultPadding),
+      decoration: const BoxDecoration(
         color: Colors.white,
-        borderRadius: const BorderRadius.all(Radius.circular(defaultPadding)),
+        borderRadius: BorderRadius.all(Radius.circular(defaultPadding)),
       ),
       child: ListTile(
         onTap: press,
-        contentPadding: EdgeInsets.all(defaultPadding),
+        contentPadding: const EdgeInsets.all(defaultPadding),
         leading: AspectRatio(
           aspectRatio: 0.85,
           child: Image.asset(

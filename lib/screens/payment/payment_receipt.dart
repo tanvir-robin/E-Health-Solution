@@ -5,7 +5,6 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter/material.dart';
 import 'package:open_file/open_file.dart';
 
 class PaymentReceipt {
@@ -61,7 +60,7 @@ class PaymentReceipt {
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
                       pw.Text(
-                        'Dental Care',
+                        'SmileNest',
                         style: pw.TextStyle(
                           fontSize: 24,
                           fontWeight: pw.FontWeight.bold,

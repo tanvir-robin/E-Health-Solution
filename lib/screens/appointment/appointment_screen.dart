@@ -11,7 +11,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/route_manager.dart';
 
 class AppointmentScreen extends StatefulWidget {
-  const AppointmentScreen({Key? key, required this.doctor}) : super(key: key);
+  const AppointmentScreen({super.key, required this.doctor});
   final AvailableDoctor doctor;
 
   @override
@@ -125,7 +125,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Appointment"),
+        title: const Text("Appointment"),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -149,13 +149,13 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
               padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
               child: FutureBuilder<List<String>>(
                 future: fetchBookedSlots(
-                    widget.doctor.id!), // Fetch all booked slots for the doctor
+                    widget.doctor.id), // Fetch all booked slots for the doctor
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   }
                   if (snapshot.hasError) {
-                    return Center(child: Text("Error loading slots."));
+                    return const Center(child: Text("Error loading slots."));
                   }
 
                   List<String> bookedSlots = snapshot.data ?? [];
@@ -163,7 +163,8 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                   return GridView.builder(
                     shrinkWrap: true,
                     itemCount: slots.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
                       childAspectRatio: 2.77,
                       mainAxisSpacing: defaultPadding,
@@ -187,7 +188,8 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                 : (selectedSlot == index
                                     ? primaryColor
                                     : Colors.white),
-                            borderRadius: BorderRadius.all(Radius.circular(6)),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(6)),
                           ),
                           child: Text(
                             isBooked ? 'Taken' : slots[index],
@@ -196,7 +198,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                 .titleMedium!
                                 .copyWith(
                                     color: isBooked
-                                        ? Color.fromARGB(255, 81, 22, 18)
+                                        ? const Color.fromARGB(255, 81, 22, 18)
                                         : (selectedSlot == index
                                             ? Colors.white
                                             : textColor)),
@@ -211,7 +213,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
             Padding(
               padding: const EdgeInsets.all(defaultPadding),
               child: Text(
-                "Complaints",
+                "Cheif Complaints",
                 style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
@@ -220,7 +222,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
               child: TextField(
                 controller: complaintController,
                 maxLines: 5, // Multiline input
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: "Enter your complaint here...",
                   border: OutlineInputBorder(),
                 ),
@@ -231,7 +233,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
               child: ElevatedButton(
                 onPressed: () {
                   String patientDocID = FirebaseAuth.instance.currentUser!.uid;
-                  int doctorId = widget.doctor.id!;
+                  int doctorId = widget.doctor.id;
 
                   if (selectedDate != null) {
                     String selectedTime = slots[selectedSlot];
@@ -241,11 +243,11 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                         selectedTime, complaint);
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("Please select a date.")),
+                      const SnackBar(content: Text("Please select a date.")),
                     );
                   }
                 },
-                child: Text("Confirm Appointment"),
+                child: const Text("Confirm Appointment"),
               ),
             ),
           ],

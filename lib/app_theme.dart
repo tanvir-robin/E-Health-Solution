@@ -11,10 +11,10 @@ class AppTheme {
       textTheme: Theme.of(context).textTheme.apply(displayColor: textColor),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: TextButton.styleFrom(
-          padding: EdgeInsets.all(defaultPadding),
+          padding: const EdgeInsets.all(defaultPadding),
           backgroundColor: primaryColor,
           foregroundColor: Colors.white,
-          minimumSize: Size(double.infinity, 48),
+          minimumSize: const Size(double.infinity, 48),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
@@ -23,8 +23,8 @@ class AppTheme {
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           foregroundColor: Colors.white,
-          minimumSize: Size(double.infinity, 48),
-          side: BorderSide(color: secondaryColor),
+          minimumSize: const Size(double.infinity, 48),
+          side: const BorderSide(color: secondaryColor),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
@@ -50,10 +50,10 @@ class AppTheme {
       appBarTheme: AppBarTheme(
         backgroundColor: Colors.white,
         elevation: 0,
-        iconTheme: IconThemeData(color: textColor),
+        iconTheme: const IconThemeData(color: textColor),
         titleTextStyle: Theme.of(context).textTheme.titleLarge,
       ),
-      dropdownMenuTheme: DropdownMenuThemeData(
+      dropdownMenuTheme: const DropdownMenuThemeData(
         inputDecorationTheme: InputDecorationTheme(
           fillColor: Colors.white,
           filled: true,

@@ -4,19 +4,19 @@ import 'package:flutter/material.dart';
 import 'components/setting_item_caed.dart';
 
 class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
+  const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Settings"),
+        title: const Text("Settings"),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: defaultPadding),
+              const SizedBox(height: defaultPadding),
               SettingTab(
                 text: "Notifications",
                 iconSrc: "assets/icons/Notificatio_box.svg",

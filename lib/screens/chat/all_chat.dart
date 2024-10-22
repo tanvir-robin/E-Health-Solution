@@ -5,6 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class ChatListScreen extends StatefulWidget {
+  const ChatListScreen({super.key});
+
   @override
   _ChatListScreenState createState() => _ChatListScreenState();
 }
@@ -58,18 +60,18 @@ class _ChatListScreenState extends State<ChatListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Conversations'),
+        title: const Text('Conversations'),
         backgroundColor: Colors.teal, // Custom color for the AppBar
       ),
       body: FutureBuilder<List<Map<String, dynamic>>>(
         future: _fetchConversations(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
 
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text('No conversations available'));
+            return const Center(child: Text('No conversations available'));
           }
 
           List<Map<String, dynamic>> conversations = snapshot.data!;
@@ -88,6 +90,7 @@ class _ChatListScreenState extends State<ChatListScreen> {
               AvailableDoctor? doctor = demoAvailableDoctors.firstWhere(
                 (doc) => doc.id.toString() == doctorId,
                 orElse: () => AvailableDoctor(
+                  degrees: '',
                   id: 0,
                   name: "Unknown Doctor",
                   sector: "",
@@ -112,7 +115,8 @@ class _ChatListScreenState extends State<ChatListScreen> {
                   );
                 },
                 child: Card(
-                  margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   elevation: 4,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -126,23 +130,23 @@ class _ChatListScreenState extends State<ChatListScreen> {
                           backgroundColor: Colors.teal.shade300,
                           child: Text(
                             doctor.name.isNotEmpty ? doctor.name[0] : 'D',
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white),
                           ),
                         ),
-                        SizedBox(width: 16),
+                        const SizedBox(width: 16),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 doctor.name,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 16),
                               ),
-                              SizedBox(height: 4),
+                              const SizedBox(height: 4),
                               Text(
                                 lastMessage,
                                 maxLines: 1,

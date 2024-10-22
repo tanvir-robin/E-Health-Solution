@@ -12,12 +12,14 @@ class DoctorSignInScreen extends StatelessWidget {
   TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
+  DoctorSignInScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: EdgeInsets.all(defaultPadding),
+          padding: const EdgeInsets.all(defaultPadding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -28,7 +30,7 @@ class DoctorSignInScreen extends StatelessWidget {
                     .titleLarge!
                     .copyWith(fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: defaultPadding * 1.5),
+              const SizedBox(height: defaultPadding * 1.5),
               Form(
                 key: _formKey,
                 child: Column(
@@ -37,7 +39,7 @@ class DoctorSignInScreen extends StatelessWidget {
                     TextFormField(
                       controller: emailController,
                       keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(labelText: "Email*"),
+                      decoration: const InputDecoration(labelText: "Email*"),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return "Please enter your email";
@@ -51,7 +53,8 @@ class DoctorSignInScreen extends StatelessWidget {
                       child: TextFormField(
                         controller: passwordController,
                         obscureText: true,
-                        decoration: InputDecoration(labelText: "Password*"),
+                        decoration:
+                            const InputDecoration(labelText: "Password*"),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return "Please enter your password";
@@ -60,7 +63,7 @@ class DoctorSignInScreen extends StatelessWidget {
                         },
                       ),
                     ),
-                    SizedBox(height: defaultPadding),
+                    const SizedBox(height: defaultPadding),
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
@@ -69,7 +72,7 @@ class DoctorSignInScreen extends StatelessWidget {
                             _loginDoctor();
                           }
                         },
-                        child: Text("Sign In"),
+                        child: const Text("Sign In"),
                       ),
                     ),
                     const SizedBox(
@@ -103,7 +106,7 @@ class DoctorSignInScreen extends StatelessWidget {
     for (var doctor in demoAvailableDoctors) {
       if (doctor.email == email && doctor.password == password) {
         loggedInDoctor = doctor;
-        Get.offAll(() => DoctorPanelScreen());
+        Get.offAll(() => const DoctorPanelScreen());
         return;
       }
     }

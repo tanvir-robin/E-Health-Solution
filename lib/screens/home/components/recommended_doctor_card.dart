@@ -1,3 +1,4 @@
+import 'package:dental_care/models/AvailableDoctor.dart';
 import 'package:dental_care/screens/details/doctor_details_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -6,9 +7,9 @@ import '../../../models/RecommendDoctor.dart';
 
 class RecommendDoctorCard extends StatelessWidget {
   const RecommendDoctorCard({
-    Key? key,
+    super.key,
     required this.doctor,
-  }) : super(key: key);
+  });
 
   final RecommendedDoctor doctor;
 
@@ -16,18 +17,27 @@ class RecommendDoctorCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //       builder: (context) => DoctorDetailsScreen(selectedDoctor: doctor,),
-        //     ));
+        AvailableDoctor? availableDoctors;
+        for (var element in demoAvailableDoctors) {
+          if (element.name == doctor.name) {
+            availableDoctors = (element);
+            break;
+          }
+        }
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => DoctorDetailsScreen(
+                selectedDoctor: availableDoctors!,
+              ),
+            ));
       },
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: defaultPadding / 2),
+        margin: const EdgeInsets.symmetric(horizontal: defaultPadding / 2),
         padding: const EdgeInsets.all(defaultPadding),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: primaryColor,
-          borderRadius: const BorderRadius.all(Radius.circular(defaultPadding)),
+          borderRadius: BorderRadius.all(Radius.circular(defaultPadding)),
         ),
         child: Row(
           children: [
@@ -44,13 +54,14 @@ class RecommendDoctorCard extends StatelessWidget {
                   Row(
                     children: [
                       Container(
-                        margin: EdgeInsets.only(right: defaultPadding / 2),
+                        margin:
+                            const EdgeInsets.only(right: defaultPadding / 2),
                         width: 2,
                         height: 48,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Color(0xFF83D047),
-                          borderRadius: const BorderRadius.all(
-                              Radius.circular(defaultPadding)),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(defaultPadding)),
                         ),
                       ),
                       Column(
@@ -58,13 +69,13 @@ class RecommendDoctorCard extends StatelessWidget {
                         children: [
                           Text(
                             doctor.name,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white),
                           ),
                           Text(
-                            doctor.speciality + "\n" + doctor.institute,
-                            style: TextStyle(color: Colors.white),
+                            "${doctor.speciality}\n${doctor.institute}",
+                            style: const TextStyle(color: Colors.white),
                           ),
                         ],
                       )

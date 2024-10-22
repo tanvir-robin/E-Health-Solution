@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SplashScreen extends StatelessWidget {
+  const SplashScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,16 +21,16 @@ class SplashScreen extends StatelessWidget {
               padding: const EdgeInsets.all(defaultPadding),
               child: Column(
                 children: [
-                  Spacer(),
+                  const Spacer(),
                   // SvgPicture.asset("assets/icons/gerda_logo.svg"),
-                  Text(
-                    'E-HealthCare',
+                  const Text(
+                    'SmileNest',
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 28,
                         color: Colors.white),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   ElevatedButton(
                     onPressed: () => Navigator.pushReplacement(
                         context,
@@ -36,9 +38,9 @@ class SplashScreen extends StatelessWidget {
                           builder: (context) => SignUpScreen(),
                         )),
                     style: TextButton.styleFrom(
-                      backgroundColor: Color(0xFF6CD8D1),
+                      backgroundColor: const Color(0xFF6CD8D1),
                     ),
-                    child: Text("Sign Up"),
+                    child: const Text("Sign Up"),
                   ),
                   Padding(
                     padding:
@@ -50,7 +52,7 @@ class SplashScreen extends StatelessWidget {
                           builder: (context) => SignInScreen(),
                         ),
                       ),
-                      child: Text("Sign In"),
+                      child: const Text("Sign In"),
                     ),
                   ),
                 ],

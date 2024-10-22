@@ -20,8 +20,8 @@ class PaymentPage extends StatefulWidget {
   final AvailableDoctor doctor;
   final Appointment appointment;
 
-  const PaymentPage({Key? key, required this.doctor, required this.appointment})
-      : super(key: key);
+  const PaymentPage(
+      {super.key, required this.doctor, required this.appointment});
 
   @override
   _PaymentPageState createState() => _PaymentPageState();
@@ -101,13 +101,14 @@ class _PaymentPageState extends State<PaymentPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Payment', style: TextStyle(fontWeight: FontWeight.bold)),
+        title: const Text('Payment',
+            style: TextStyle(fontWeight: FontWeight.bold)),
         backgroundColor: Colors.blue.shade600,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: AnimatedContainer(
-          duration: Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 300),
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [Colors.blue.shade300, Colors.blue.shade100],
@@ -117,7 +118,7 @@ class _PaymentPageState extends State<PaymentPage> {
             borderRadius: BorderRadius.circular(12.0),
           ),
           child: Container(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(12.0),
@@ -125,31 +126,31 @@ class _PaymentPageState extends State<PaymentPage> {
                 BoxShadow(
                   color: Colors.black.withOpacity(0.2),
                   blurRadius: 15,
-                  offset: Offset(0, 5),
+                  offset: const Offset(0, 5),
                 ),
               ],
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 20),
-                Text(
+                const SizedBox(height: 20),
+                const Text(
                   "Doctor:",
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Hero(
-                  tag: widget.doctor.id!,
+                  tag: widget.doctor.id,
                   child: Material(
                     color: Colors.transparent,
                     child: Text(
-                      widget.doctor.name!,
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                      widget.doctor.name,
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.w500),
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Text(
                   "Payable Amount:",
                   style: TextStyle(
@@ -158,7 +159,7 @@ class _PaymentPageState extends State<PaymentPage> {
                       color: Colors.blue.shade700),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Center(
                   child: Text(
                     "$payableAmount BDT",
@@ -168,49 +169,51 @@ class _PaymentPageState extends State<PaymentPage> {
                         color: Colors.blue.shade800),
                   ),
                 ),
-                SizedBox(height: 20),
-                Divider(thickness: 2),
-                Text(
+                const SizedBox(height: 20),
+                const Divider(thickness: 2),
+                const Text(
                   "Appointment Details",
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Text(
                   "Date: ${DateFormat("dd MMM").format(widget.appointment.dateTime)}",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.w500),
                 ),
                 Text(
                   "Time: ${DateFormat("hh:mm a").format(widget.appointment.dateTime)}",
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.w500),
+                ),
+                const Text(
+                  "Location: SmileNest",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
-                Text(
-                  "Location: Dental Care Clinic",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                ),
-                Spacer(),
-                if (isLoading) Center(child: CircularProgressIndicator()),
+                const Spacer(),
+                if (isLoading) const Center(child: CircularProgressIndicator()),
               ],
             ),
           ),
         ),
       ),
       bottomNavigationBar: Container(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         color: Colors.white,
         child: SizedBox(
           width: double.infinity,
           child: ElevatedButton(
             onPressed: isLoading ? null : payNow,
-            child: Text(
-              isLoading ? "Processing..." : "Pay Now",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
             style: ElevatedButton.styleFrom(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8.0),
               ),
               backgroundColor: isLoading ? Colors.grey : Colors.blue.shade600,
+            ),
+            child: Text(
+              isLoading ? "Processing..." : "Pay Now",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
           ),
         ),

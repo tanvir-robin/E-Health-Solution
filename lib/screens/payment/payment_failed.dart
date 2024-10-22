@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PaymentFailedScreen extends StatelessWidget {
+  const PaymentFailedScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -30,13 +32,13 @@ class PaymentFailedScreen extends StatelessWidget {
         padding: const EdgeInsets.all(20.0),
         child: ElevatedButton(
           onPressed: () {
-            Get.off(() => MainScreen());
+            Get.off(() => const MainScreen());
           },
-          child: Text('Retry'),
           style: ElevatedButton.styleFrom(
-            minimumSize: Size(double.infinity, 50),
+            minimumSize: const Size(double.infinity, 50),
             backgroundColor: Colors.red,
           ),
+          child: Text('Retry'),
         ),
       ),
     );

@@ -6,8 +6,8 @@ import '../../../constants.dart';
 
 class SearchForm extends StatelessWidget {
   const SearchForm({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class SearchForm extends StatelessWidget {
             }).toList(),
             onSelected: (value) {},
           ),
-          SizedBox(height: defaultPadding),
+          const SizedBox(height: defaultPadding),
           DropdownMenu(
             width: double.infinity,
             hintText: "Select Specialist",
@@ -41,7 +41,7 @@ class SearchForm extends StatelessWidget {
             }).toList(),
             onSelected: (value) {},
           ),
-          SizedBox(height: defaultPadding),
+          const SizedBox(height: defaultPadding),
           MaterialButton(
             onPressed: () {
               showDatePicker(
@@ -53,7 +53,7 @@ class SearchForm extends StatelessWidget {
             },
             color: Colors.white,
             elevation: 0,
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
                 horizontal: 12, vertical: defaultPadding * 1.25),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -75,10 +75,10 @@ class SearchForm extends StatelessWidget {
               onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SearchResultScreen(),
+                  builder: (context) => const SearchResultScreen(),
                 ),
               ),
-              child: Text("Search"),
+              child: const Text("Search"),
             ),
           ),
         ],

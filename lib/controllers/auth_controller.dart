@@ -73,7 +73,7 @@ class AuthController extends GetxController {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => MainScreen(),
+          builder: (context) => const MainScreen(),
         ),
       );
     } catch (e) {

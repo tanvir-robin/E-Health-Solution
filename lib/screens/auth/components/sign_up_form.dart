@@ -8,9 +8,11 @@ import '../../../constants.dart';
 class SignUpForm extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
 
+  SignUpForm({super.key});
+
   @override
   Widget build(BuildContext context) {
-    String _password = "";
+    String password = "";
     return GetBuilder<AuthController>(
         init: AuthController(),
         builder: (authcontroller) {
@@ -21,9 +23,9 @@ class SignUpForm extends StatelessWidget {
               children: [
                 TextFormField(
                   controller: authcontroller.userNamedController,
-                  validator: RequiredValidator(errorText: requiredField),
+                  validator: RequiredValidator(errorText: requiredField).call,
                   onSaved: (newValue) {},
-                  decoration: InputDecoration(labelText: "Username*"),
+                  decoration: const InputDecoration(labelText: "Username*"),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: defaultPadding),
@@ -34,38 +36,39 @@ class SignUpForm extends StatelessWidget {
                         RequiredValidator(errorText: requiredField),
                         EmailValidator(errorText: emailError),
                       ],
-                    ),
+                    ).call,
                     keyboardType: TextInputType.emailAddress,
                     onSaved: (newValue) {},
-                    decoration: InputDecoration(labelText: "Email*"),
+                    decoration: const InputDecoration(labelText: "Email*"),
                   ),
                 ),
                 TextFormField(
                   controller: authcontroller.phoneController,
                   onSaved: (newValue) {},
-                  decoration: InputDecoration(labelText: "Phone Number"),
+                  decoration: const InputDecoration(labelText: "Phone Number"),
                   keyboardType: TextInputType.phone,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: defaultPadding),
                   child: TextFormField(
                     controller: authcontroller.passwordController,
-                    validator: passwordValidator,
+                    validator: passwordValidator.call,
                     obscureText: true,
-                    onChanged: (value) => _password = value,
+                    onChanged: (value) => password = value,
                     onSaved: (pass) {},
-                    decoration: InputDecoration(labelText: "Password*"),
+                    decoration: const InputDecoration(labelText: "Password*"),
                   ),
                 ),
                 TextFormField(
                   validator: (val) =>
                       MatchValidator(errorText: 'passwords do not match')
-                          .validateMatch(val!, _password),
+                          .validateMatch(val!, password),
                   obscureText: true,
                   onSaved: (newValue) {},
-                  decoration: InputDecoration(labelText: "Confirm password*"),
+                  decoration:
+                      const InputDecoration(labelText: "Confirm password*"),
                 ),
-                SizedBox(height: defaultPadding * 1.5),
+                const SizedBox(height: defaultPadding * 1.5),
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
@@ -75,7 +78,7 @@ class SignUpForm extends StatelessWidget {
                         authcontroller.createUserAccount(context);
                       }
                     },
-                    child: Text("Sign Up"),
+                    child: const Text("Sign Up"),
                   ),
                 ),
               ],

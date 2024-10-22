@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class Highlight extends StatelessWidget {
   const Highlight({
-    Key? key,
+    super.key,
     required this.name,
     required this.text,
-  }) : super(key: key);
+  });
 
   final String name, text;
 

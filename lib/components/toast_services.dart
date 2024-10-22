@@ -14,10 +14,10 @@ class ToastService {
   // Success Toast
   void showSuccessToast(BuildContext context, String msg) {
     MotionToast.success(
-      title: Text("Success"),
+      title: const Text("Success"),
       description: Text(msg),
       animationType: AnimationType.fromTop,
-      position: MotionToastPosition.top,
+      position: MotionToastPosition.bottom,
       dismissable: true,
     ).show(context);
   }
@@ -25,10 +25,10 @@ class ToastService {
   // Error Toast
   void showErrorToast(BuildContext context, String msg) {
     MotionToast.error(
-      title: Text("Error"),
+      title: const Text("Error"),
       description: Text(msg),
       animationType: AnimationType.fromTop,
-      position: MotionToastPosition.top,
+      position: MotionToastPosition.bottom,
       dismissable: true,
     ).show(context);
   }
@@ -36,10 +36,10 @@ class ToastService {
   // Warning Toast
   void showWarningToast(BuildContext context, String msg) {
     MotionToast.warning(
-      title: Text("Warning"),
+      title: const Text("Warning"),
       description: Text(msg),
       animationType: AnimationType.fromTop,
-      position: MotionToastPosition.top,
+      position: MotionToastPosition.bottom,
       dismissable: true,
     ).show(context);
   }
@@ -47,10 +47,10 @@ class ToastService {
   // Info Toast
   void showInfoToast(BuildContext context, String msg) {
     MotionToast.info(
-      title: Text("Info"),
+      title: const Text("Info"),
       description: Text(msg),
       animationType: AnimationType.fromTop,
-      position: MotionToastPosition.top,
+      position: MotionToastPosition.bottom,
       dismissable: true,
     ).show(context);
   }
@@ -69,7 +69,7 @@ class ToastService {
       title: Text(title),
       description: Text(msg),
       animationType: AnimationType.fromTop,
-      position: MotionToastPosition.top,
+      position: MotionToastPosition.bottom,
       dismissable: true,
     ).show(context);
   }

@@ -7,9 +7,9 @@ import 'rating.dart';
 
 class AvailableDoctorCard extends StatelessWidget {
   const AvailableDoctorCard({
-    Key? key,
+    super.key,
     required this.info,
-  }) : super(key: key);
+  });
 
   final AvailableDoctor info;
 
@@ -27,10 +27,10 @@ class AvailableDoctorCard extends StatelessWidget {
               ));
         },
         child: Container(
-          padding: EdgeInsets.all(defaultPadding),
-          decoration: BoxDecoration(
+          padding: const EdgeInsets.all(defaultPadding),
+          decoration: const BoxDecoration(
             color: Colors.white,
-            borderRadius: const BorderRadius.all(Radius.circular(12)),
+            borderRadius: BorderRadius.all(Radius.circular(12)),
           ),
           child: Row(
             children: [
@@ -38,19 +38,18 @@ class AvailableDoctorCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    info.name!,
+                    info.name,
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   Text(
-                    info.sector!,
+                    info.sector,
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: defaultPadding / 2),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: defaultPadding / 2),
                     child: Rating(score: 5),
                   ),
-                  SizedBox(height: defaultPadding / 2),
+                  const SizedBox(height: defaultPadding / 2),
                   Text(
                     "Experience",
                     style: Theme.of(context).textTheme.bodySmall,
@@ -59,19 +58,19 @@ class AvailableDoctorCard extends StatelessWidget {
                     "${info.experience} Years",
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
-                  SizedBox(height: defaultPadding / 2),
+                  const SizedBox(height: defaultPadding / 2),
                   Text(
                     "Patients",
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                   Text(
-                    info.patients!,
+                    info.patients,
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                 ],
               ),
               Image.asset(
-                info.image!,
+                info.image,
                 height: 120,
                 fit: BoxFit.cover,
               )

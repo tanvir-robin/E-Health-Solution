@@ -7,6 +7,7 @@ class AvailableDoctor {
   final String image;
   final String email;
   final String password;
+  final String degrees;
 
   AvailableDoctor({
     required this.id,
@@ -17,57 +18,70 @@ class AvailableDoctor {
     required this.image,
     required this.email,
     required this.password,
+    required this.degrees,
   });
 }
 
 List<AvailableDoctor> demoAvailableDoctors = [
   AvailableDoctor(
     id: 1,
-    name: "Dr. Sumaiya Rahamn",
-    sector: "Medicine Specialist",
+    name: "Dr. Md. Imran Hossain",
+    sector: "Orthodontist",
     experience: 8,
     patients: '1.08K',
-    image: "assets/images/Serena_Gome.png",
+    image: "assets/images/doc1.png",
+    degrees:
+        '''BDS (DU), PhD (Dental Surgery) France, MSS (Clinical) DU, MPH (USA),
+PGT (Orthodontic), PGT (OMS) BSMMU, Research Fellow & Surgeon (STRC Project, Smile Train, USA),
+Advanced Implantology (Thailand), Invisalign (Thailand & India),
+Advanced Training in Fixed Orthodontic Braces, Implantology & Laser Dentistry (India)''',
     email: "doc1@gmail.com",
     password: "password1",
   ),
   AvailableDoctor(
     id: 2,
-    name: "Dr. Asma Khan",
-    sector: "Medicine Specialist",
+    name: "Prof. Dr. B.A.K Azad",
+    sector: "OMS",
     experience: 5,
     patients: '2.7K',
-    image: "assets/images/Asma_Khan.png",
+    image: "assets/images/doc2.png",
+    degrees: '''BDS, DDS, MCPS, MDS (London), FICP (America)''',
     email: "doc2@gmail.com",
     password: "password2",
   ),
   AvailableDoctor(
     id: 3,
-    name: "Dr. Kiran Shakia",
-    sector: "Medicine Specialist",
+    name: "Dr. Proshenjit Sarker",
+    sector: "OMS, Endodontist",
     experience: 5,
     patients: '2.7K',
-    image: "assets/images/Kiran_Shakia.png",
+    image: "assets/images/doc3.png",
+    degrees:
+        '''BDS (Dhaka Dental College), PGT (Oral & Maxillofacial Surgery), PGT (Conservative & Endodontics),
+PGT (Prosthodontics), Specialized Training on Dental Implant (DGME),
+Specialized Training on Aesthetic Dentistry (DGHS), Training On Cross Infection (DGHS)''',
     email: "doc3@gmail.comm",
     password: "password3",
   ),
   AvailableDoctor(
     id: 4,
-    name: "Dr. Masuda Khan",
-    sector: "Medicine Specialist",
+    name: "Dr. Roksana Begum",
+    sector: "Pedodontist, DPH",
     experience: 5,
     patients: '2.7K',
-    image: "assets/images/Masuda_Khan.png",
+    image: "assets/images/doc4.png",
+    degrees: '''BDS (DDC), PGT (MOHKSA)''',
     email: "doc4@gmail.comm",
     password: "password4",
   ),
   AvailableDoctor(
     id: 5,
-    name: "Dr. Johir Raihan",
-    sector: "Medicine Specialist",
+    name: "Dr. Farzana Anar",
+    sector: "Periodontist, Orthodontist",
     experience: 5,
     patients: '2.7K',
-    image: "assets/images/Johir_Raihan.png",
+    image: "assets/images/doc5.png",
+    degrees: '''BDS, FCPS, Conservative Dentistry & Endodontics Specialist''',
     email: "doc5@gmail.com",
     password: "password5",
   ),

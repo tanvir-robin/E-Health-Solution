@@ -6,12 +6,12 @@ import '../../../constants.dart';
 
 class SettingTab extends StatelessWidget {
   const SettingTab({
-    Key? key,
+    super.key,
     this.text,
     this.iconSrc,
     required this.value,
     required this.onChanged,
-  }) : super(key: key);
+  });
 
   final String? text, iconSrc;
   final bool value;
@@ -21,9 +21,9 @@ class SettingTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 1),
-      decoration: BoxDecoration(color: Colors.white),
+      decoration: const BoxDecoration(color: Colors.white),
       child: ListTile(
-        contentPadding: EdgeInsets.symmetric(
+        contentPadding: const EdgeInsets.symmetric(
             horizontal: defaultPadding, vertical: defaultPadding / 2),
         leading: SvgPicture.asset(iconSrc!),
         title: Text(

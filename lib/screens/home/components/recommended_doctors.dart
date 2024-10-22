@@ -5,8 +5,8 @@ import '../../../models/RecommendDoctor.dart';
 
 class RecommendedDoctors extends StatelessWidget {
   const RecommendedDoctors({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

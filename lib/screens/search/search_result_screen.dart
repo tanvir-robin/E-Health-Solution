@@ -9,7 +9,7 @@ import 'package:flutter_svg/svg.dart';
 import 'components/search_doctor_card.dart';
 
 class SearchResultScreen extends StatelessWidget {
-  const SearchResultScreen({Key? key}) : super(key: key);
+  const SearchResultScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class SearchResultScreen extends StatelessWidget {
               "Selected area",
               style: Theme.of(context).textTheme.bodySmall,
             ),
-            Text("Boston"),
+            const Text("Boston"),
           ],
         ),
         actions: [
@@ -59,7 +59,7 @@ class SearchResultScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              AvailableDoctors(),
+              const AvailableDoctors(),
             ],
           ),
         ),

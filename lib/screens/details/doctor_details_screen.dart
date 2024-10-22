@@ -8,38 +8,37 @@ import 'package:flutter/material.dart';
 import 'components/communication.dart';
 
 class DoctorDetailsScreen extends StatelessWidget {
-  const DoctorDetailsScreen({Key? key, required this.selectedDoctor})
-      : super(key: key);
+  const DoctorDetailsScreen({super.key, required this.selectedDoctor});
   final AvailableDoctor selectedDoctor;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(selectedDoctor.name!),
+        title: Text(selectedDoctor.name),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: defaultPadding),
+          padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.asset(selectedDoctor.image!),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: defaultPadding),
-                child: Communication(),
-              ),
+              Center(child: Image.asset(selectedDoctor.image)),
+              const SizedBox(height: defaultPadding),
+              // const Padding(
+              //   padding: EdgeInsets.symmetric(vertical: defaultPadding),
+              //   child: Communication(),
+              // ),
               Text(
-                selectedDoctor.sector!,
+                selectedDoctor.sector,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
-              Text("Good Health Clinic, MBBS, FCPS"),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: defaultPadding / 4),
+              Text(selectedDoctor.degrees),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: defaultPadding / 4),
                 child: Rating(score: 5),
               ),
-              SizedBox(height: defaultPadding),
+              const SizedBox(height: defaultPadding),
               Text(
                 "About Doctor",
                 style: Theme.of(context).textTheme.titleMedium,
@@ -48,11 +47,11 @@ class DoctorDetailsScreen extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(vertical: defaultPadding / 2),
                 child: Text(
-                  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+                  "${selectedDoctor.name} is a highly skilled professional in the field of ${selectedDoctor.sector}. With over ${selectedDoctor.experience} years of experience, Dr. ${selectedDoctor.name} has successfully treated numerous patients. Known for a compassionate approach and dedication to patient care, Dr. ${selectedDoctor.name} is a trusted name in the medical community.",
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: defaultPadding),
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: defaultPadding),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -82,7 +81,7 @@ class DoctorDetailsScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  child: Text("Book an Appoinment"),
+                  child: const Text("Book an Appoinment"),
                 ),
               ),
             ],

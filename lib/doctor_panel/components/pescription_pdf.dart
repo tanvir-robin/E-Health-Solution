@@ -11,7 +11,7 @@ Future<File> generatePrescriptionPDF(String patientName, String complaint,
   final titleStyle = pw.TextStyle(fontSize: 24, fontWeight: pw.FontWeight.bold);
   final subtitleStyle =
       pw.TextStyle(fontSize: 18, fontWeight: pw.FontWeight.bold);
-  final bodyStyle = pw.TextStyle(fontSize: 14);
+  final bodyStyle = const pw.TextStyle(fontSize: 14);
 
   pdf.addPage(
     pw.Page(
@@ -24,7 +24,7 @@ Future<File> generatePrescriptionPDF(String patientName, String complaint,
               child: pw.Container(
                 alignment: pw.Alignment.center,
                 child: pw.Text(
-                  'DENTAL CARE',
+                  'SmileNest',
                   style: pw.TextStyle(
                     fontSize: 60,
                     fontWeight: pw.FontWeight.bold,
@@ -39,7 +39,7 @@ Future<File> generatePrescriptionPDF(String patientName, String complaint,
             crossAxisAlignment: pw.CrossAxisAlignment.start,
             children: [
               // Header
-              pw.Text('Dental Care Prescription', style: titleStyle),
+              pw.Text('SmileNest Prescription', style: titleStyle),
               pw.SizedBox(height: 20),
               pw.Text('Patient Name: $patientName', style: bodyStyle),
               pw.Text('Doctor: $doctorName', style: bodyStyle),

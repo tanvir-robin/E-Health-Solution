@@ -9,6 +9,8 @@ import '../../../constants.dart';
 class SignInForm extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
 
+  SignInForm({super.key});
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AuthController>(
@@ -26,26 +28,26 @@ class SignInForm extends StatelessWidget {
                       RequiredValidator(errorText: requiredField),
                       EmailValidator(errorText: emailError),
                     ],
-                  ),
+                  ).call,
                   keyboardType: TextInputType.emailAddress,
                   onSaved: (newValue) {},
-                  decoration: InputDecoration(labelText: "Email*"),
+                  decoration: const InputDecoration(labelText: "Email*"),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: defaultPadding),
                   child: TextFormField(
                     controller: authcontroller.passwordController,
-                    validator: passwordValidator,
+                    validator: passwordValidator.call,
                     obscureText: true,
                     onSaved: (newValue) {},
-                    decoration: InputDecoration(labelText: "Password*"),
+                    decoration: const InputDecoration(labelText: "Password*"),
                   ),
                 ),
-                TextButton(
-                  onPressed: () {},
-                  child: Text("Forgot your Password?"),
-                ),
-                SizedBox(height: defaultPadding),
+                // TextButton(
+                //   onPressed: () {},
+                //   child: const Text("Forgot your Password?"),
+                // ),
+                const SizedBox(height: defaultPadding),
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
@@ -55,7 +57,7 @@ class SignInForm extends StatelessWidget {
                         authcontroller.signInAccount(context);
                       }
                     },
-                    child: Text("Sign In"),
+                    child: const Text("Sign In"),
                   ),
                 ),
               ],
