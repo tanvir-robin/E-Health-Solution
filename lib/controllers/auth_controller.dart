@@ -82,4 +82,17 @@ class AuthController extends GetxController {
       EasyLoading.dismiss();
     }
   }
+
+  Future<void> resetPassword(BuildContext context) async {
+    try {
+      EasyLoading.show(status: 'Sending reset email...');
+      await fbAuth.sendPasswordResetEmail(email: emailController.text);
+      EasyLoading.dismiss();
+      ToastService().showSuccessToast(context, 'Password reset email sent');
+    } catch (e) {
+      print(e);
+      ToastService().showErrorToast(context, 'Sorry, Something Went Wrong!');
+      EasyLoading.dismiss();
+    }
+  }
 }

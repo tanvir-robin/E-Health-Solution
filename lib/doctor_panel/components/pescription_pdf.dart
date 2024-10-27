@@ -7,7 +7,6 @@ Future<File> generatePrescriptionPDF(String patientName, String complaint,
     String doctorName, String prescriptionDetails) async {
   final pdf = pw.Document();
 
-  // Define styles for the PDF
   final titleStyle = pw.TextStyle(fontSize: 24, fontWeight: pw.FontWeight.bold);
   final subtitleStyle =
       pw.TextStyle(fontSize: 18, fontWeight: pw.FontWeight.bold);
@@ -17,10 +16,9 @@ Future<File> generatePrescriptionPDF(String patientName, String complaint,
     pw.Page(
       build: (pw.Context context) => pw.Stack(
         children: [
-          // Watermark
           pw.Positioned.fill(
             child: pw.Opacity(
-              opacity: 0.1, // Adjust opacity for the watermark
+              opacity: 0.1,
               child: pw.Container(
                 alignment: pw.Alignment.center,
                 child: pw.Text(
@@ -34,11 +32,9 @@ Future<File> generatePrescriptionPDF(String patientName, String complaint,
               ),
             ),
           ),
-          // Main content
           pw.Column(
             crossAxisAlignment: pw.CrossAxisAlignment.start,
             children: [
-              // Header
               pw.Text('SmileNest Prescription', style: titleStyle),
               pw.SizedBox(height: 20),
               pw.Text('Patient Name: $patientName', style: bodyStyle),
@@ -48,21 +44,37 @@ Future<File> generatePrescriptionPDF(String patientName, String complaint,
                 style: bodyStyle,
               ),
               pw.SizedBox(height: 20),
-
-              // Complaint
               pw.Text('Complaint:', style: subtitleStyle),
               pw.Text(complaint, style: bodyStyle),
               pw.SizedBox(height: 20),
-
-              // Prescription Details
               pw.Text('Prescription:', style: subtitleStyle),
               pw.Text(prescriptionDetails, style: bodyStyle),
-
-              // Closing
               pw.SizedBox(height: 30),
               pw.Text(
                 'Please follow the prescription instructions and feel free to contact us for any queries.',
                 style: bodyStyle,
+              ),
+              pw.SizedBox(height: 40),
+              pw.Row(
+                mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                children: [
+                  pw.SizedBox(width: 40),
+                  pw.Column(
+                    crossAxisAlignment: pw.CrossAxisAlignment.end,
+                    children: [
+                      pw.SizedBox(height: 50),
+                      pw.Container(
+                        width: 100,
+                        child: pw.Divider(
+                          thickness: 1,
+                          color: PdfColors.black,
+                        ),
+                      ),
+                      pw.Text('Dr. $doctorName', style: bodyStyle),
+                      pw.Text('Signature', style: bodyStyle),
+                    ],
+                  ),
+                ],
               ),
             ],
           ),
@@ -71,7 +83,6 @@ Future<File> generatePrescriptionPDF(String patientName, String complaint,
     ),
   );
 
-  // Save the PDF file
   final directory = await getApplicationDocumentsDirectory();
   final filePath =
       '${directory.path}/prescription_${DateTime.now().millisecondsSinceEpoch}.pdf';
