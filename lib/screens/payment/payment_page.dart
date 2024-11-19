@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:dental_care/helpers.dart';
 import 'package:dental_care/models/AvailableDoctor.dart';
 import 'package:dental_care/screens/appointment/models/appointment_model.dart';
@@ -28,7 +27,7 @@ class PaymentPage extends StatefulWidget {
 }
 
 class _PaymentPageState extends State<PaymentPage> {
-  final double payableAmount = 600.0;
+  final double payableAmount = 500.0;
   PaymentReceipt paymentReceipt = PaymentReceipt();
   bool isLoading = false;
 
@@ -107,93 +106,58 @@ class _PaymentPageState extends State<PaymentPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 300),
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.blue.shade300, Colors.blue.shade100],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-            borderRadius: BorderRadius.circular(12.0),
-          ),
-          child: Container(
-            padding: const EdgeInsets.all(16.0),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12.0),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.2),
-                  blurRadius: 15,
-                  offset: const Offset(0, 5),
-                ),
-              ],
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 20),
-                const Text(
-                  "Doctor:",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 10),
-                Hero(
-                  tag: widget.doctor.id,
-                  child: Material(
-                    color: Colors.transparent,
-                    child: Text(
-                      widget.doctor.name,
-                      style: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Text(
-                  "Payable Amount:",
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 20),
+              Text(
+                "Doctor: ${widget.doctor.name}",
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 20),
+              Text(
+                "Payable Amount:",
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.blue.shade700),
+              ),
+              const SizedBox(height: 10),
+              Center(
+                child: Text(
+                  "$payableAmount BDT",
                   style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 32,
                       fontWeight: FontWeight.bold,
-                      color: Colors.blue.shade700),
-                  textAlign: TextAlign.center,
+                      color: Colors.blue.shade800),
                 ),
-                const SizedBox(height: 10),
-                Center(
-                  child: Text(
-                    "$payableAmount BDT",
-                    style: TextStyle(
-                        fontSize: 32,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue.shade800),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                const Divider(thickness: 2),
-                const Text(
-                  "Appointment Details",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  "Date: ${DateFormat("dd MMM").format(widget.appointment.dateTime)}",
-                  style: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.w500),
-                ),
-                Text(
-                  "Time: ${DateFormat("hh:mm a").format(widget.appointment.dateTime)}",
-                  style: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.w500),
-                ),
-                const Text(
-                  "Location: SmileNest",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                ),
-                const Spacer(),
-                if (isLoading) const Center(child: CircularProgressIndicator()),
-              ],
-            ),
+              ),
+              const SizedBox(height: 20),
+              const Divider(thickness: 2),
+              const Text(
+                "Appointment Details",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                "Date: ${DateFormat("dd MMM").format(widget.appointment.dateTime)}",
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              ),
+              Text(
+                "Time: ${DateFormat("hh:mm a").format(widget.appointment.dateTime)}",
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              ),
+              const Text(
+                "Location: Smart Health Care",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              ),
+              const SizedBox(height: 20),
+              if (isLoading) const Center(child: CircularProgressIndicator()),
+            ],
           ),
         ),
       ),

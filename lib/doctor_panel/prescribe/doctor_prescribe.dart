@@ -85,25 +85,54 @@ class DoctorAppointmentsScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  patient['username'] ?? "Unknown Patient",
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      patient['username'] ?? "Unknown Patient",
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    IconButton(
+                        onPressed: () {
+                          _showPastRecords(
+                              context, appointment['patientDocID']);
+                        },
+                        icon: Icon(Icons.view_agenda)),
+                  ],
                 ),
                 const SizedBox(height: 4),
-                Text("Complaint: ${appointment['complaint']}"),
+                Text("Note: ${appointment['complaint']}"),
                 const SizedBox(height: 4),
-                Text(
-                    "Date: ${DateFormat("dd MMM, yyyy - hh:mm a").format(appointment['dateTime'].toDate())}"),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                        "Date: ${DateFormat("dd MMM, yyyy - hh:mm a").format(appointment['dateTime'].toDate())}"),
+                    IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => DoctorChatScreen(
+                                name: patient['username'],
+                                patientId: patientDocID, // Pass the patient ID
+                              ),
+                            ),
+                          );
+                        },
+                        icon: Icon(Icons.chat)),
+                  ],
+                ),
                 const SizedBox(height: 8),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: ElevatedButton(
-                    onPressed: () =>
-                        _showPastRecords(context, appointment['patientDocID']),
-                    child: const Text("Past Appointments"),
-                  ),
-                ),
-                const SizedBox(height: 10),
+                // Align(
+                //   alignment: Alignment.centerRight,
+                //   child: ElevatedButton(
+                //     onPressed: () =>
+                //         _showPastRecords(context, appointment['patientDocID']),
+                //     child: const Text("Past Appointments"),
+                //   ),
+                // ),
+                // const SizedBox(height: 10),
                 Align(
                   alignment: Alignment.centerRight,
                   child: ElevatedButton(
@@ -114,27 +143,27 @@ class DoctorAppointmentsScreen extends StatelessWidget {
                 ),
                 const Divider(color: Colors.grey),
                 const SizedBox(height: 10),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => DoctorChatScreen(
-                            name: patient['username'],
-                            patientId: patientDocID, // Pass the patient ID
-                          ),
-                        ),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                      foregroundColor: Colors.white,
-                    ),
-                    child: const Text("Chat with Patient"),
-                  ),
-                ),
+                // Align(
+                //   alignment: Alignment.centerRight,
+                //   child: ElevatedButton(
+                //     onPressed: () {
+                //       Navigator.push(
+                //         context,
+                //         MaterialPageRoute(
+                //           builder: (context) => DoctorChatScreen(
+                //             name: patient['username'],
+                //             patientId: patientDocID, // Pass the patient ID
+                //           ),
+                //         ),
+                //       );
+                //     },
+                //     style: ElevatedButton.styleFrom(
+                //       backgroundColor: Colors.blue,
+                //       foregroundColor: Colors.white,
+                //     ),
+                //     child: const Text("Chat with Patient"),
+                //   ),
+                // ),
               ],
             ),
           ),

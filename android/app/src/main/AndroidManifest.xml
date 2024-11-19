@@ -3,7 +3,7 @@
     <application
         tools:replace="android:label"
         android:usesCleartextTraffic="true"
-        android:label="SmileNest"
+        android:label="Smart Health Care"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         

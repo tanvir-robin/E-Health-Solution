@@ -60,7 +60,7 @@ class PaymentReceipt {
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
                       pw.Text(
-                        'SmileNest',
+                        'Smart Health Care',
                         style: pw.TextStyle(
                           fontSize: 24,
                           fontWeight: pw.FontWeight.bold,

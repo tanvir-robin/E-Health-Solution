@@ -22,19 +22,16 @@ class AvailableDoctors extends StatelessWidget {
           ),
         ),
         SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: List.generate(
-              demoAvailableDoctors.length,
-              (index) => Padding(
-                padding: const EdgeInsets.only(left: defaultPadding),
-                child: AvailableDoctorCard(
-                  info: demoAvailableDoctors[index],
-                ),
-              ),
-            ),
+          child: ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              final AvailableDoctor doctor = demoAvailableDoctors[index];
+              return AvailableDoctorCard(info: doctor);
+            },
+            itemCount: demoAvailableDoctors.length,
           ),
-        )
+        ),
       ],
     );
   }

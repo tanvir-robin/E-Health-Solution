@@ -3,8 +3,8 @@ import 'package:mailer/smtp_server.dart';
 import 'dart:io'; // Required for File
 
 class EmailService {
-  final String username = 'smilenest147@gmail.com';
-  final String password = 'nbrcpsgvpwefghvn';
+  final String username = 'iamshefa.18@gmail.com';
+  final String password = 'sofhzvseppjvjglf';
 
   // Method to send OTP email
   Future<void> sendOtpEmail(String receiverEmail, String otp) async {
@@ -17,22 +17,22 @@ class EmailService {
     );
 
     final message = Message()
-      ..from = Address(username, 'SmileNest')
+      ..from = Address(username, 'Smart Health Care')
       ..recipients.add(receiverEmail)
       ..subject = 'Your OTP Code'
       ..html = '''
     <div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2">
       <div style="margin:50px auto;width:70%;padding:20px 0">
         <div style="border-bottom:1px solid #eee">
-          <a href="" style="font-size:1.4em;color: #00466a;text-decoration:none;font-weight:600">SmileNest</a>
+          <a href="" style="font-size:1.4em;color: #00466a;text-decoration:none;font-weight:600">Smart Health Care</a>
         </div>
         <p style="font-size:1.1em">Hi,</p>
-        <p>Thank you for choosing SmileNest. Use the following OTP to complete your Sign Up procedures. OTP is valid for 5 minutes</p>
+        <p>Thank you for choosing Smart Health Care. Use the following OTP to complete your Sign Up procedures. OTP is valid for 5 minutes</p>
         <h2 style="background: #00466a;margin: 0 auto;width: max-content;padding: 0 10px;color: #fff;border-radius: 4px;">$otp</h2>
-        <p style="font-size:0.9em;">Regards,<br />SmileNest</p>
+        <p style="font-size:0.9em;">Regards,<br />Smart Health Care</p>
         <hr style="border:none;border-top:1px solid #eee" />
         <div style="float:right;padding:8px 0;color:#aaa;font-size:0.8em;line-height:1;font-weight:300">
-          <p>SmileNest</p>
+          <p>Smart Health Care</p>
           <p>Bangladesh</p>
         </div>
       </div>
@@ -62,21 +62,21 @@ class EmailService {
 
     // Create the email with PDF attachment
     final message = Message()
-      ..from = Address(username, 'SmileNest')
+      ..from = Address(username, 'Smart Health Care')
       ..recipients.add(receiverEmail)
-      ..subject = 'Payment Success to SmileNest'
+      ..subject = 'Payment Success to Smart Health Care'
       ..html = '''
       <div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2">
         <div style="margin:50px auto;width:70%;padding:20px 0">
           <div style="border-bottom:1px solid #eee">
-            <a href="" style="font-size:1.4em;color: #00466a;text-decoration:none;font-weight:600">SmileNest</a>
+            <a href="" style="font-size:1.4em;color: #00466a;text-decoration:none;font-weight:600">Smart Health Care</a>
           </div>
           <p style="font-size:1.1em">Hi,</p>
-          <p>Your payment to SmileNest was successful. Please find your payment receipt attached as a PDF.</p>
-          <p style="font-size:0.9em;">Regards,<br />SmileNest</p>
+          <p>Your payment to Smart Health Care was successful. Please find your payment receipt attached as a PDF.</p>
+          <p style="font-size:0.9em;">Regards,<br />Smart Health Care</p>
           <hr style="border:none;border-top:1px solid #eee" />
           <div style="float:right;padding:8px 0;color:#aaa;font-size:0.8em;line-height:1;font-weight:300">
-            <p>SmileNest</p>
+            <p>Smart Health Care</p>
             <p>Dhaka, Bangladesh</p>
           </div>
         </div>
@@ -107,21 +107,21 @@ class EmailService {
 
     // Create the email with PDF attachment
     final message = Message()
-      ..from = Address(username, 'SmileNest')
+      ..from = Address(username, 'Smart Health Care')
       ..recipients.add(receiverEmail)
-      ..subject = 'Your Prescription from SmileNest'
+      ..subject = 'Your Prescription from Smart Health Care'
       ..html = '''
       <div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2">
         <div style="margin:50px auto;width:70%;padding:20px 0">
           <div style="border-bottom:1px solid #eee">
-            <a href="" style="font-size:1.4em;color: #00466a;text-decoration:none;font-weight:600">SmileNest</a>
+            <a href="" style="font-size:1.4em;color: #00466a;text-decoration:none;font-weight:600">Smart Health Care</a>
           </div>
           <p style="font-size:1.1em">Hi $patientName,</p>
           <p>Your prescription is attached as a PDF. Please review it and follow the prescribed instructions.</p>
-          <p style="font-size:0.9em;">Regards,<br />SmileNest</p>
+          <p style="font-size:0.9em;">Regards,<br />Smart Health Care</p>
           <hr style="border:none;border-top:1px solid #eee" />
           <div style="float:right;padding:8px 0;color:#aaa;font-size:0.8em;line-height:1;font-weight:300">
-            <p>SmileNest</p>
+            <p>Smart Health Care</p>
             <p>Dhaka, Bangladesh</p>
           </div>
         </div>

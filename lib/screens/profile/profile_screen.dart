@@ -27,24 +27,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future<void> fetchUserData() async {
-    String uid = FirebaseAuth.instance.currentUser!.uid;
-    DocumentSnapshot userDoc =
-        await FirebaseFirestore.instance.collection('users').doc(uid).get();
-
-    if (userDoc.exists) {
-      setState(() {
-        username = userDoc['username'] ?? 'N/A';
-        email = userDoc['email'] ?? 'N/A';
-        phone = userDoc['phone'] ?? 'N/A';
-        createdAt = DateFormat('dd MMMM yyyy')
-            .format((userDoc['createdAt'] as Timestamp).toDate());
-        isLoading = false;
-      });
-    } else {
-      // Handle the case where the user document does not exist
-      setState(() {
-        isLoading = false;
-      });
+    try {
+      String uid = FirebaseAuth.instance.currentUser!.uid;
+      DocumentSnapshot userDoc =
+          await FirebaseFirestore.instance.collection('users').doc(uid).get();
+      print(userDoc.data());
+      if (userDoc.exists) {
+        setState(() {
+          username = userDoc['username'] ?? 'N/A';
+          email = userDoc['email'] ?? 'N/A';
+          phone = userDoc['phone'] ?? 'N/A';
+          createdAt = DateFormat('dd MMMM yyyy')
+              .format((userDoc['createdAt'] as Timestamp).toDate());
+          isLoading = false;
+        });
+      } else {
+        // Handle the case where the user document does not exist
+        setState(() {
+          isLoading = false;
+        });
+      }
+    } catch (e) {
+      print(e);
     }
   }
 

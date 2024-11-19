@@ -23,20 +23,19 @@ class Categories extends StatelessWidget {
             pressOnSeeAll: () {},
           ),
         ),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: List.generate(
-              demo_categories.length,
-              (index) => CategoryCard(
-                category: demo_categories[index],
-                press: () {
-                  Get.to(() => AvailableDoctors());
-                },
-              ),
+        SizedBox(
+          height: 100, // Adjust the height as needed
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: demo_categories.length,
+            itemBuilder: (context, index) => CategoryCard(
+              category: demo_categories[index],
+              press: () {
+                // Add your desired functionality here
+              },
             ),
           ),
-        )
+        ),
       ],
     );
   }

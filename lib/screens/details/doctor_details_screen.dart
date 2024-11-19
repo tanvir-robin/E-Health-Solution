@@ -50,26 +50,26 @@ class DoctorDetailsScreen extends StatelessWidget {
                   "${selectedDoctor.name} is a highly skilled professional in the field of ${selectedDoctor.sector}. With over ${selectedDoctor.experience} years of experience, Dr. ${selectedDoctor.name} has successfully treated numerous patients. Known for a compassionate approach and dedication to patient care, Dr. ${selectedDoctor.name} is a trusted name in the medical community.",
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: defaultPadding),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Highlight(
-                      name: "Patients",
-                      text: "1.08K",
-                    ),
-                    Highlight(
-                      name: "Experience",
-                      text: "8 Years",
-                    ),
-                    Highlight(
-                      name: "Reviews",
-                      text: "2.05K",
-                    ),
-                  ],
-                ),
-              ),
+              // const Padding(
+              //   padding: EdgeInsets.symmetric(vertical: defaultPadding),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //     children: [
+              //       Highlight(
+              //         name: "Patients",
+              //         text: "1.08K",
+              //       ),
+              //       Highlight(
+              //         name: "Experience",
+              //         text: "8 Years",
+              //       ),
+              //       Highlight(
+              //         name: "Reviews",
+              //         text: "2.05K",
+              //       ),
+              //     ],
+              //   ),
+              // ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: defaultPadding),
                 child: ElevatedButton(

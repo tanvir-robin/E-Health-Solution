@@ -1,9 +1,9 @@
+import 'package:dental_care/screens/home/top_card.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/custom_app_bar.dart';
 import 'components/available_doctors.dart';
 import 'components/categories.dart';
-import 'components/recommended_doctors.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -16,10 +16,14 @@ class HomePage extends StatelessWidget {
           child: Column(
             children: [
               CustomAppBar(
-                text: "Find Your",
-                title: "Specialist",
+                text: "Meet with your",
+                title: "Doctor",
               ),
-              RecommendedDoctors(),
+              HealthcareCard(
+                description: "Take health advatafe",
+                gifUrl: "assets/images/health.gif",
+                title: "Smart Health",
+              ),
               Categories(),
               AvailableDoctors()
             ],

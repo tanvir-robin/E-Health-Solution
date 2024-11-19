@@ -22,7 +22,7 @@ Future<File> generatePrescriptionPDF(String patientName, String complaint,
               child: pw.Container(
                 alignment: pw.Alignment.center,
                 child: pw.Text(
-                  'SmileNest',
+                  'Smart Health Care',
                   style: pw.TextStyle(
                     fontSize: 60,
                     fontWeight: pw.FontWeight.bold,
@@ -35,7 +35,7 @@ Future<File> generatePrescriptionPDF(String patientName, String complaint,
           pw.Column(
             crossAxisAlignment: pw.CrossAxisAlignment.start,
             children: [
-              pw.Text('SmileNest Prescription', style: titleStyle),
+              pw.Text('Smart Health Care Prescription', style: titleStyle),
               pw.SizedBox(height: 20),
               pw.Text('Patient Name: $patientName', style: bodyStyle),
               pw.Text('Doctor: $doctorName', style: bodyStyle),

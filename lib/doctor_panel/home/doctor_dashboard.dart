@@ -13,8 +13,6 @@ class DoctorPanelScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final appointmentsCollection =
         FirebaseFirestore.instance.collection('appointments');
-    Set<String> uniquePatientIds = {};
-    // Assume you have a collection for patients
     final patientsCollection =
         FirebaseFirestore.instance.collection('patients');
 
@@ -35,133 +33,66 @@ class DoctorPanelScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Notification Banner
+              // Greeting Section
               Container(
                 padding: const EdgeInsets.all(16.0),
                 decoration: BoxDecoration(
-                  color: Colors.amber[100],
-                  borderRadius: BorderRadius.circular(8),
+                  color: Colors.blue.shade50,
+                  borderRadius: BorderRadius.circular(12),
                 ),
-                child: Text(
-                  "Hello, ${loggedInDoctor!.name}",
-                  style: const TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18),
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 25,
+                      backgroundColor: Colors.blue,
+                      child: const Icon(Icons.person, color: Colors.white),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Text(
+                        "Welcome, Dr. ${loggedInDoctor!.name}!",
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(height: 20),
 
               // Appointments Section
-              const Text(
-                "Appointments",
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-              ),
+              _buildSectionTitle("Appointments"),
               const SizedBox(height: 10),
-              StreamBuilder<QuerySnapshot>(
-                stream: appointmentsCollection
-                    .where('doctorId', isEqualTo: loggedInDoctor!.id)
-                    .snapshots(),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
+              _buildAppointmentGrid(appointmentsCollection),
 
-                  int todayCount = 0;
-                  int upcomingCount = 0;
-
-                  final now = DateTime.now();
-                  final todayStart = DateTime(now.year, now.month, now.day);
-                  final tomorrowStart = todayStart.add(const Duration(days: 1));
-
-                  for (var doc in snapshot.data!.docs) {
-                    uniquePatientIds.add(doc['patientDocID']);
-                    final appointmentDate =
-                        (doc['dateTime'] as Timestamp).toDate();
-                    if (appointmentDate.isAfter(todayStart) &&
-                        appointmentDate.isBefore(tomorrowStart)) {
-                      todayCount++;
-                    }
-                    if (appointmentDate.isAfter(now)) {
-                      upcomingCount++;
-                    }
-                  }
-
-                  return Column(
-                    children: [
-                      InkWell(
-                          onTap: () {
-                            Get.to(() => const DoctorAppointmentsScreen());
-                          },
-                          child: _buildAppointmentCard(
-                              todayCount.toString(), "Today")),
-                      _buildAppointmentCard(
-                          upcomingCount.toString(), "Upcoming"),
-                      // Center(
-                      //   child: TextButton(
-                      //     onPressed: () {},
-                      //     child: const Text(
-                      //       "View Device Calendar",
-                      //       style: TextStyle(color: Colors.blue),
-                      //     ),
-                      //   ),
-                      // ),
-                    ],
-                  );
-                },
-              ),
               const SizedBox(height: 20),
 
               // Patients Section
-              const Text(
-                "Patients",
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-              ),
+              _buildSectionTitle("Patients"),
               const SizedBox(height: 10),
-              StreamBuilder<QuerySnapshot>(
-                stream: patientsCollection.snapshots(),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
+              _buildPatientCard(patientsCollection),
 
-                  final totalPatients = uniquePatientIds.length;
-                  return Column(
-                    children: [
-                      _buildPatientCard(
-                          totalPatients.toString(), "Total Patients"),
-                      // _buildPatientCard("0", "Total Patients for Re-call"),
-                      // _buildPatientCard("0", "Upcoming Birthdays"),
-                    ],
-                  );
-                },
-              ),
               const SizedBox(height: 20),
 
               // Shortcuts Section
-              const Text(
-                "Shortcuts",
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-              ),
+              _buildSectionTitle("Shortcuts"),
               const SizedBox(height: 10),
-              Wrap(
-                spacing: 10,
+              GridView(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                ),
                 children: [
-                  // _buildShortcutButton("Upgrade Now"),
-                  // _buildShortcutButton("Add Payment"),
-                  InkWell(
-                      onTap: () => Get.to(() => DoctorAllMessages()),
-                      child: _buildShortcutButton("Messages")),
-                  InkWell(
-                      onTap: () {
-                        Get.to(() => SplashScreen());
-                      },
-                      child: _buildShortcutButton("Sign Out")),
+                  _buildShortcutTile("Messages", Icons.message,
+                      () => Get.to(() => DoctorAllMessages())),
+                  _buildShortcutTile("Sign Out", Icons.logout,
+                      () => Get.to(() => SplashScreen())),
                 ],
               ),
-              const SizedBox(height: 20),
             ],
           ),
         ),
@@ -169,42 +100,119 @@ class DoctorPanelScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildAppointmentCard(String count, String title) {
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 5),
-      child: ListTile(
-        title: Text(count, style: const TextStyle(fontSize: 24)),
-        subtitle: Text(title),
-        trailing: const Icon(Icons.arrow_forward),
+  Widget _buildSectionTitle(String title) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Text(
+        title,
+        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
       ),
     );
   }
 
-  Widget _buildPatientCard(String count, String title) {
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 5),
-      child: ListTile(
-        title: Text(count, style: const TextStyle(fontSize: 24)),
-        subtitle: Text(title),
-        trailing: const Icon(Icons.arrow_forward),
+  Widget _buildAppointmentGrid(CollectionReference appointmentsCollection) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: appointmentsCollection
+          .where('doctorId', isEqualTo: loggedInDoctor!.id)
+          .snapshots(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        int todayCount = 0;
+        int upcomingCount = 0;
+
+        final now = DateTime.now();
+        final todayStart = DateTime(now.year, now.month, now.day);
+        final tomorrowStart = todayStart.add(const Duration(days: 1));
+
+        for (var doc in snapshot.data!.docs) {
+          final appointmentDate = (doc['dateTime'] as Timestamp).toDate();
+          if (appointmentDate.isAfter(todayStart) &&
+              appointmentDate.isBefore(tomorrowStart)) {
+            todayCount++;
+          }
+          if (appointmentDate.isAfter(now)) {
+            upcomingCount++;
+          }
+        }
+
+        return GridView(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+          ),
+          children: [
+            InkWell(
+                onTap: () {
+                  Get.to(() => DoctorAppointmentsScreen());
+                },
+                child: _buildInfoTile(
+                    "Today", todayCount.toString(), Colors.green)),
+            _buildInfoTile("Upcoming", upcomingCount.toString(), Colors.blue),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildInfoTile(String title, String count, Color color) {
+    return Container(
+      padding: const EdgeInsets.all(12.0),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.2),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            count,
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 8),
+          Text(title, style: const TextStyle(fontSize: 16)),
+        ],
       ),
     );
   }
 
-  Widget _buildShortcutButton(String title) {
-    return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ElevatedButton(
-          onPressed: null,
-          style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-          ),
-          child: Text(
-            title,
-            style: const TextStyle(
-              color: Colors.white,
-            ),
-          ),
-        ));
+  Widget _buildShortcutTile(String title, IconData icon, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.blue.shade100,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, size: 40, color: Colors.blue),
+            const SizedBox(height: 8),
+            Text(title, style: const TextStyle(fontSize: 16)),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPatientCard(CollectionReference patientsCollection) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: patientsCollection.snapshots(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        final totalPatients = snapshot.data!.docs.length;
+        return _buildInfoTile(
+            "Total Patients", totalPatients.toString(), Colors.orange);
+      },
+    );
   }
 }

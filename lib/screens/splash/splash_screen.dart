@@ -2,7 +2,6 @@ import 'package:dental_care/constants.dart';
 import 'package:dental_care/screens/auth/sign_in_screen.dart';
 import 'package:dental_care/screens/auth/sign_up_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -13,8 +12,17 @@ class SplashScreen extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          SvgPicture.asset(
-            "assets/icons/splash_bg.svg",
+          Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color.fromARGB(255, 67, 54, 183),
+                  Color.fromARGB(255, 129, 114, 216)
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
           ),
           SafeArea(
             child: Padding(
@@ -22,13 +30,12 @@ class SplashScreen extends StatelessWidget {
               child: Column(
                 children: [
                   const Spacer(),
-                  // SvgPicture.asset("assets/icons/gerda_logo.svg"),
                   const Text(
-                    'SmileNest',
+                    'Smart Health Care',
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 28,
-                        color: Colors.white),
+                        color: Colors.black),
                   ),
                   const Spacer(),
                   ElevatedButton(
@@ -38,7 +45,7 @@ class SplashScreen extends StatelessWidget {
                           builder: (context) => SignUpScreen(),
                         )),
                     style: TextButton.styleFrom(
-                      backgroundColor: const Color(0xFF6CD8D1),
+                      backgroundColor: Color.fromARGB(255, 0, 3, 2),
                     ),
                     child: const Text("Sign Up"),
                   ),

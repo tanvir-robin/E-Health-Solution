@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dental_care/models/AvailableDoctor.dart';
 import 'package:flutter/material.dart';
 
@@ -15,8 +18,7 @@ class AvailableDoctorCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FittedBox(
-      child: GestureDetector(
+    return GestureDetector(
         onTap: () {
           Navigator.push(
               context,
@@ -26,58 +28,70 @@ class AvailableDoctorCard extends StatelessWidget {
                 ),
               ));
         },
-        child: Container(
-          padding: const EdgeInsets.all(defaultPadding),
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.all(Radius.circular(12)),
-          ),
-          child: Row(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    info.name,
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  Text(
-                    info.sector,
-                    style: Theme.of(context).textTheme.bodySmall,
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: defaultPadding / 2),
-                    child: Rating(score: 5),
-                  ),
-                  const SizedBox(height: defaultPadding / 2),
-                  Text(
-                    "Experience",
-                    style: Theme.of(context).textTheme.bodySmall,
-                  ),
-                  Text(
-                    "${info.experience} Years",
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  const SizedBox(height: defaultPadding / 2),
-                  Text(
-                    "Patients",
-                    style: Theme.of(context).textTheme.bodySmall,
-                  ),
-                  Text(
-                    info.patients,
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                ],
-              ),
-              Image.asset(
-                info.image,
-                height: 120,
-                fit: BoxFit.cover,
-              )
-            ],
-          ),
+        child: _doctorTile(info));
+  }
+
+  Widget _doctorTile(AvailableDoctor model) {
+    return Container(
+        margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              offset: Offset(4, 4),
+              blurRadius: 10,
+              color: Colors.grey.withOpacity(.2),
+            ),
+            BoxShadow(
+              offset: Offset(-3, 0),
+              blurRadius: 15,
+              color: Colors.grey.withOpacity(.1),
+            )
+          ],
         ),
-      ),
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+          child: ListTile(
+            contentPadding: EdgeInsets.all(0),
+            leading: ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(13)),
+              child: Container(
+                height: 55,
+                width: 55,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: randomColor(),
+                ),
+                child: Image.asset(
+                  model.image,
+                  height: 50,
+                  width: 50,
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
+            title:
+                Text(model.name, style: TextStyle(fontWeight: FontWeight.bold)),
+            subtitle: Text(
+              model.sector,
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            trailing: Icon(
+              Icons.keyboard_arrow_right,
+              size: 30,
+            ),
+          ),
+        ));
+  }
+
+  Color randomColor() {
+    final random = Random();
+    return Color.fromARGB(
+      255,
+      random.nextInt(256),
+      random.nextInt(256),
+      random.nextInt(256),
     );
   }
 }

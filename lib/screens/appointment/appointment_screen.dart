@@ -2,7 +2,6 @@ import 'package:dental_care/constants.dart';
 import 'package:dental_care/models/AvailableDoctor.dart';
 import 'package:dental_care/screens/appointment/cpmponents/calendar.dart';
 import 'package:dental_care/screens/appointment/models/appointment_model.dart';
-import 'package:dental_care/screens/main/main_screen.dart';
 import 'package:dental_care/screens/payment/payment_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -31,12 +30,9 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
   ];
 
   int selectedSlot = 0;
-  DateTime? selectedDate =
-      DateTime.now(); // Set the initial selected date to today's date
-  final TextEditingController complaintController =
-      TextEditingController(); // Controller for complaint
+  DateTime? selectedDate = DateTime.now();
+  final TextEditingController complaintController = TextEditingController();
 
-  // Function to fetch booked slots for the doctor
   Future<List<String>> fetchBookedSlots(int doctorId) async {
     QuerySnapshot snapshot = await FirebaseFirestore.instance
         .collection('appointments')
@@ -47,7 +43,6 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
     for (var doc in snapshot.docs) {
       Appointment appointment =
           Appointment.fromJson(doc.data() as Map<String, dynamic>);
-      // Check if the appointment date matches the selected date
       if (appointment.dateTime.year == selectedDate!.year &&
           appointment.dateTime.month == selectedDate!.month &&
           appointment.dateTime.day == selectedDate!.day) {
@@ -58,7 +53,6 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
     return bookedSlots;
   }
 
-  // Function to format DateTime to time slot
   String _formatTimeToSlot(DateTime dateTime) {
     String hour = dateTime.hour.toString();
     String minute = dateTime.minute == 0 ? "00" : dateTime.minute.toString();
@@ -67,36 +61,30 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
     if (dateTime.hour > 12) {
       hour = (dateTime.hour - 12).toString();
     } else if (dateTime.hour == 0) {
-      hour = "12"; // Midnight case
+      hour = "12";
     }
 
     return "$hour:$minute $period";
   }
 
-  // Function to book the appointment
   void bookAppointment(String patientDocID, int doctorId, DateTime selectedDate,
       String selectedTime, String complaint) async {
-    // Add complaint parameter
     EasyLoading.show(status: 'Booking Appointment...');
 
-    // Split the selectedTime into hours and minutes
     List<String> timeParts = selectedTime.split(" ");
     List<String> hourMinute = timeParts[0].split(":");
 
     int hour = int.parse(hourMinute[0]);
     int minute = int.parse(hourMinute[1]);
 
-    // If time is in PM and it's not 12 PM, add 12 to convert to 24-hour format
     if (timeParts[1] == "pm" && hour != 12) {
       hour += 12;
     }
 
-    // If it's 12 AM, set the hour to 0 (midnight)
     if (timeParts[1] == "am" && hour == 12) {
       hour = 0;
     }
 
-    // Now, create the correct DateTime object
     DateTime appointmentDateTime = DateTime(
       selectedDate.year,
       selectedDate.month,
@@ -110,7 +98,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
       doctorId: doctorId,
       dateTime: appointmentDateTime,
       status: "pending",
-      complaint: complaint, // Assign the complaint
+      complaint: complaint,
     );
 
     EasyLoading.dismiss();
@@ -126,30 +114,74 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Appointment"),
+        backgroundColor: primaryColor,
       ),
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Calendar(
-              onDateSelected: (date) {
-                setState(() {
-                  selectedDate = date;
-                });
-              },
-            ),
-            Padding(
-              padding: const EdgeInsets.all(defaultPadding),
-              child: Text(
-                "Slots",
+        child: Padding(
+          padding: const EdgeInsets.all(defaultPadding),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Doctor Info Section
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.2),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 45,
+                      backgroundImage: AssetImage(widget.doctor.image),
+                    ),
+                    const SizedBox(width: defaultPadding),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.doctor.name,
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                        const SizedBox(height: 4),
+                        Row(
+                          children: [
+                            const Icon(Icons.medical_services,
+                                color: Colors.grey),
+                            const SizedBox(width: 4),
+                            Text(
+                              widget.doctor.sector,
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: defaultPadding),
+              Calendar(
+                onDateSelected: (date) {
+                  setState(() {
+                    selectedDate = date;
+                  });
+                },
+              ),
+              const SizedBox(height: defaultPadding),
+              Text(
+                "Available Slots",
                 style: Theme.of(context).textTheme.titleLarge,
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-              child: FutureBuilder<List<String>>(
-                future: fetchBookedSlots(
-                    widget.doctor.id), // Fetch all booked slots for the doctor
+              const SizedBox(height: defaultPadding),
+              FutureBuilder<List<String>>(
+                future: fetchBookedSlots(widget.doctor.id),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
@@ -166,9 +198,9 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
-                      childAspectRatio: 2.77,
-                      mainAxisSpacing: defaultPadding,
-                      crossAxisSpacing: defaultPadding,
+                      childAspectRatio: 2.5,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
                     ),
                     itemBuilder: (context, index) {
                       bool isBooked = bookedSlots.contains(slots[index]);
@@ -180,28 +212,33 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                   selectedSlot = index;
                                 });
                               },
-                        child: Container(
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 200),
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                             color: isBooked
-                                ? Colors.grey
+                                ? Colors.grey.shade300
                                 : (selectedSlot == index
                                     ? primaryColor
                                     : Colors.white),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(6)),
+                            borderRadius: BorderRadius.circular(8),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.05),
+                                blurRadius: 5,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
                           ),
                           child: Text(
-                            isBooked ? 'Taken' : slots[index],
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium!
-                                .copyWith(
-                                    color: isBooked
-                                        ? const Color.fromARGB(255, 81, 22, 18)
-                                        : (selectedSlot == index
-                                            ? Colors.white
-                                            : textColor)),
+                            isBooked ? 'Booked' : slots[index],
+                            style: TextStyle(
+                              color: isBooked
+                                  ? Colors.white
+                                  : (selectedSlot == index
+                                      ? Colors.white
+                                      : primaryColor),
+                            ),
                           ),
                         ),
                       );
@@ -209,48 +246,54 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                   );
                 },
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(defaultPadding),
-              child: Text(
-                "Cheif Complaints",
+              const SizedBox(height: defaultPadding),
+              Text(
+                "Patient Message / Note",
                 style: Theme.of(context).textTheme.titleLarge,
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-              child: TextField(
+              const SizedBox(height: defaultPadding),
+              TextField(
                 controller: complaintController,
-                maxLines: 5, // Multiline input
-                decoration: const InputDecoration(
-                  hintText: "Enter your complaint here...",
-                  border: OutlineInputBorder(),
+                maxLines: 4,
+                decoration: InputDecoration(
+                  hintText: "Enter your message here...",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(defaultPadding),
-              child: ElevatedButton(
-                onPressed: () {
-                  String patientDocID = FirebaseAuth.instance.currentUser!.uid;
-                  int doctorId = widget.doctor.id;
+              const SizedBox(height: defaultPadding),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    String patientDocID =
+                        FirebaseAuth.instance.currentUser!.uid;
+                    int doctorId = widget.doctor.id;
 
-                  if (selectedDate != null) {
-                    String selectedTime = slots[selectedSlot];
-                    String complaint =
-                        complaintController.text; // Get complaint text
-                    bookAppointment(patientDocID, doctorId, selectedDate!,
-                        selectedTime, complaint);
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("Please select a date.")),
-                    );
-                  }
-                },
-                child: const Text("Confirm Appointment"),
+                    if (selectedDate != null) {
+                      String selectedTime = slots[selectedSlot];
+                      String complaint = complaintController.text;
+                      bookAppointment(patientDocID, doctorId, selectedDate!,
+                          selectedTime, complaint);
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Please select a date.")),
+                      );
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 32, vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    backgroundColor: primaryColor,
+                  ),
+                  child: const Text("Confirm Appointment"),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
