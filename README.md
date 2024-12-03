@@ -1,6 +1,8 @@
 # 🏥 E-Health Solution  
 
 **E-Health Solution** is a cross-platform mobile app designed to modernize the healthcare system by bringing its services online. Built with **Flutter** and **Dart**, and powered by **Firebase**, this app delivers a user-friendly experience for both patients and doctors.  
+
+---
 ![photo_6231100517262672169_w](https://github.com/user-attachments/assets/14498400-c3c5-429d-afb8-19168f36525b)
 
 ---
@@ -34,10 +36,6 @@
 3. Run the app:  
    ```bash
    flutter run
-      
-   
-   
-      
    
 ---
 
