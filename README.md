@@ -43,7 +43,9 @@
 - Replace **SSL Commerz Sandbox Credentials** in:  
   - `lib/screens/payment/payment_page.dart`  
 - Replace **Gmail SMTP Credentials** in:  
-  - `lib/helpers.dart`  
+  - `lib/helpers.dart`
+- You will get the admin panel here
+  - `https://github.com/tanvir-robin/Dental-care-admin-panel`    
 
 ---
 
