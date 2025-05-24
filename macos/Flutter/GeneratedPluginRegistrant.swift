@@ -11,7 +11,7 @@ import firebase_core
 import open_file_mac
 import path_provider_foundation
 import printing
-import sqflite
+import sqflite_darwin
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   FLTFirebaseFirestorePlugin.register(with: registry.registrar(forPlugin: "FLTFirebaseFirestorePlugin"))

@@ -20,77 +20,122 @@ class HealthcareCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              const Color(0xFF255ED6),
+              const Color(0xFF6CD8D1),
+            ],
+          ),
+          borderRadius: BorderRadius.circular(24),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.15),
-              blurRadius: 12,
-              offset: const Offset(0, 6),
+              color: const Color(0xFF255ED6).withOpacity(0.3),
+              blurRadius: 16,
+              offset: const Offset(0, 8),
+              spreadRadius: 2,
             ),
           ],
         ),
         child: Row(
           children: [
-            // GIF Section
-            ClipRRect(
-              borderRadius:
-                  const BorderRadius.horizontal(left: Radius.circular(20)),
-              child: Image.asset(
-                gifUrl,
-                height: 150,
-                width: screenWidth * 0.35, // Adjust width dynamically
-                fit: BoxFit.cover,
+            // GIF Section with improved styling
+            Hero(
+              tag: 'health-gif',
+              child: ClipRRect(
+                borderRadius: const BorderRadius.horizontal(left: Radius.circular(24)),
+                child: ShaderMask(
+                  shaderCallback: (Rect bounds) {
+                    return LinearGradient(
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                      colors: [Colors.white, Colors.white.withOpacity(0.9)],
+                    ).createShader(bounds);
+                  },
+                  blendMode: BlendMode.dstIn,
+                  child: Image.asset(
+                    gifUrl,
+                    height: 170,
+                    width: screenWidth * 0.38, // Adjust width dynamically
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ),
 
-            // Text Section
+            // Text Section with improved styling
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(20.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black,
-                      ),
+                    Row(
+                      children: [
+                        Container(
+                          height: 24,
+                          width: 5,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          title,
+                          style: const TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            letterSpacing: 0.5,
+                          ),
+                        ),
+                      ],
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 12),
                     Text(
                       description,
                       style: const TextStyle(
-                        fontSize: 15,
-                        color: Colors.grey,
+                        fontSize: 16,
+                        color: Colors.white,
                         height: 1.4,
+                        fontWeight: FontWeight.w400,
                       ),
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 16),
-                    ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 24.0,
-                          vertical: 12.0,
-                        ),
-                        backgroundColor: Colors.blueAccent,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        elevation: 0,
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 8,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
                       ),
-                      child: const Text(
-                        'Learn More',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
+                      child: ElevatedButton.icon(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.health_and_safety_outlined,
+                          size: 20,
+                        ),
+                        label: const Text('Explore'),
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 20.0,
+                            vertical: 12.0,
+                          ),
+                          backgroundColor: Colors.white,
+                          foregroundColor: const Color(0xFF255ED6),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          elevation: 0,
                         ),
                       ),
                     ),

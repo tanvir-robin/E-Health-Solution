@@ -31,7 +31,7 @@ class SettingTab extends StatelessWidget {
           style: Theme.of(context).textTheme.titleMedium,
         ),
         trailing: CupertinoSwitch(
-          activeColor: primaryColor,
+          activeTrackColor: primaryColor,
           value: value,
           onChanged: onChanged,
         ),

@@ -1,5 +1,4 @@
 import 'package:dental_care/globals.dart';
-import 'package:dental_care/models/AvailableDoctor.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';

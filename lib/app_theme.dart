@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'constants.dart';
 
@@ -7,8 +8,20 @@ class AppTheme {
     return ThemeData(
       primaryColor: primaryColor,
       scaffoldBackgroundColor: backgroundColor,
-      textButtonTheme: TextButtonThemeData(style: TextButton.styleFrom()),
-      textTheme: Theme.of(context).textTheme.apply(displayColor: textColor),
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: primaryColor,
+        secondary: secondaryColor,
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: primaryColor,
+        ),
+      ),
+      textTheme: Theme.of(context).textTheme.apply(
+            displayColor: textColor,
+            bodyColor: textColor,
+            fontFamily: 'Poppins',
+          ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: TextButton.styleFrom(
           padding: const EdgeInsets.all(defaultPadding),
@@ -16,17 +29,18 @@ class AppTheme {
           foregroundColor: Colors.white,
           minimumSize: const Size(double.infinity, 48),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(12),
           ),
+          elevation: 0,
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          foregroundColor: Colors.white,
+          foregroundColor: primaryColor,
           minimumSize: const Size(double.infinity, 48),
-          side: const BorderSide(color: secondaryColor),
+          side: const BorderSide(color: primaryColor),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(12),
           ),
         ),
       ),

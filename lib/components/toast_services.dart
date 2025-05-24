@@ -16,8 +16,7 @@ class ToastService {
     MotionToast.success(
       title: const Text("Success"),
       description: Text(msg),
-      animationType: AnimationType.fromTop,
-      position: MotionToastPosition.bottom,
+      animationType: AnimationType.slideInFromTop, // Fixed enum constant
       dismissable: true,
     ).show(context);
   }
@@ -27,8 +26,7 @@ class ToastService {
     MotionToast.error(
       title: const Text("Error"),
       description: Text(msg),
-      animationType: AnimationType.fromTop,
-      position: MotionToastPosition.bottom,
+      animationType: AnimationType.slideInFromTop, // Fixed enum constant
       dismissable: true,
     ).show(context);
   }
@@ -38,8 +36,7 @@ class ToastService {
     MotionToast.warning(
       title: const Text("Warning"),
       description: Text(msg),
-      animationType: AnimationType.fromTop,
-      position: MotionToastPosition.bottom,
+      animationType: AnimationType.slideInFromTop, // Fixed enum constant
       dismissable: true,
     ).show(context);
   }
@@ -49,8 +46,7 @@ class ToastService {
     MotionToast.info(
       title: const Text("Info"),
       description: Text(msg),
-      animationType: AnimationType.fromTop,
-      position: MotionToastPosition.bottom,
+      animationType: AnimationType.slideInFromTop, // Fixed enum constant
       dismissable: true,
     ).show(context);
   }
@@ -68,8 +64,7 @@ class ToastService {
       primaryColor: backgroundColor,
       title: Text(title),
       description: Text(msg),
-      animationType: AnimationType.fromTop,
-      position: MotionToastPosition.bottom,
+      animationType: AnimationType.slideInFromBottom, // Fixed enum constant
       dismissable: true,
     ).show(context);
   }

@@ -1,7 +1,6 @@
 import 'package:dental_care/components/section_title.dart';
 import 'package:dental_care/constants.dart';
 import 'package:dental_care/models/SearchDoctor.dart';
-import 'package:dental_care/screens/details/doctor_details_screen.dart';
 import 'package:dental_care/screens/home/components/available_doctors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';

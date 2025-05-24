@@ -19,15 +19,28 @@ class SectionTitle extends StatelessWidget {
       children: [
         Text(
           title,
-          style: Theme.of(context).textTheme.titleLarge,
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                color: textColor,
+              ),
         ),
-        // TextButton(
-        //   onPressed: pressOnSeeAll,
-        //   child: const Text(
-        //     "See All",
-        //     style: TextStyle(color: textColor),
-        //   ),
-        // ),
+        TextButton(
+          onPressed: pressOnSeeAll,
+          style: TextButton.styleFrom(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+          ),
+          child: Text(
+            "See All",
+            style: TextStyle(
+              color: primaryColor,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
       ],
     );
   }

@@ -3,7 +3,6 @@ import 'package:dental_care/doctor_panel/home/doctor_dashboard.dart';
 import 'package:dental_care/globals.dart';
 import 'package:dental_care/models/AvailableDoctor.dart';
 import 'package:dental_care/screens/auth/sign_in_screen.dart';
-import 'package:dental_care/screens/auth/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

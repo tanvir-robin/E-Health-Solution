@@ -3,8 +3,8 @@ import 'package:mailer/smtp_server.dart';
 import 'dart:io'; // Required for File
 
 class EmailService {
-  final String username = 'gmail_stmp';
-  final String password = 'your_password';
+  final String username = 'tanvirrobin0@gmail.com';
+  final String password = 'fkvawdrjzgnklheb';
 
   // Method to send OTP email
   Future<void> sendOtpEmail(String receiverEmail, String otp) async {

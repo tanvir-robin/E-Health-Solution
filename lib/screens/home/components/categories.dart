@@ -1,8 +1,6 @@
 import 'package:dental_care/models/Category.dart';
-import 'package:dental_care/screens/home/components/available_doctors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/route_manager.dart';
 
 import '../../../components/section_title.dart';
 import '../../../constants.dart';
@@ -19,15 +17,18 @@ class Categories extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(defaultPadding),
           child: SectionTitle(
-            title: "Categories",
+            title: "Specialties",
             pressOnSeeAll: () {},
           ),
         ),
-        SizedBox(
-          height: 100, // Adjust the height as needed
+        Container(
+          margin: const EdgeInsets.only(bottom: 10),
+          height: 120, // Increased height
           child: ListView.builder(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
             scrollDirection: Axis.horizontal,
             itemCount: demo_categories.length,
+            physics: const BouncingScrollPhysics(),
             itemBuilder: (context, index) => CategoryCard(
               category: demo_categories[index],
               press: () {
@@ -54,29 +55,56 @@ class CategoryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: defaultPadding),
-      child: InkWell(
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      child: GestureDetector(
         onTap: press,
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
         child: Container(
           padding: const EdgeInsets.all(defaultPadding / 2),
-          height: 90,
-          width: 90,
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(10)),
+          height: 110,
+          width: 110,
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(16)),
             color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.1),
+                spreadRadius: 1,
+                blurRadius: 8,
+                offset: const Offset(0, 3),
+              ),
+            ],
+            border: Border.all(
+              color: Colors.grey.withOpacity(0.05),
+              width: 1,
+            ),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SvgPicture.asset(category.icon),
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: primaryColor.withOpacity(0.1),
+                  shape: BoxShape.circle,
+                ),
+                child: SvgPicture.asset(
+                  category.icon,
+                  height: 32,
+                  width: 32,
+                  colorFilter: const ColorFilter.mode(
+                    primaryColor,
+                    BlendMode.srcIn,
+                  ),
+                ),
+              ),
               const SizedBox(height: defaultPadding / 2),
               Text(
                 category.title,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
                 style: const TextStyle(
-                  fontSize: 11,
+                  fontSize: 13,
                   fontWeight: FontWeight.w600,
                 ),
               )

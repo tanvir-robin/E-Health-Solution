@@ -1,11 +1,8 @@
-import 'package:dental_care/components/heightlight.dart';
 import 'package:dental_care/components/rating.dart';
 import 'package:dental_care/constants.dart';
 import 'package:dental_care/models/AvailableDoctor.dart';
 import 'package:dental_care/screens/appointment/appointment_screen.dart';
 import 'package:flutter/material.dart';
-
-import 'components/communication.dart';
 
 class DoctorDetailsScreen extends StatelessWidget {
   const DoctorDetailsScreen({super.key, required this.selectedDoctor});

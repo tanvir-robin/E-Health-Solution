@@ -17,14 +17,28 @@ class AvailableDoctors extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(defaultPadding),
           child: SectionTitle(
-            title: "Available Doctor",
+            title: "Available Doctors",
             pressOnSeeAll: () {},
           ),
         ),
-        SingleChildScrollView(
+        Container(
+          margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            color: Colors.white.withOpacity(0.9),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.08),
+                blurRadius: 10,
+                spreadRadius: 5,
+                offset: const Offset(0, 3),
+              ),
+            ],
+          ),
           child: ListView.builder(
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
+            padding: const EdgeInsets.symmetric(vertical: 8),
             itemBuilder: (context, index) {
               final AvailableDoctor doctor = demoAvailableDoctors[index];
               return AvailableDoctorCard(info: doctor);

@@ -1,12 +1,9 @@
 import 'dart:math';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dental_care/models/AvailableDoctor.dart';
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
 import '../screens/details/doctor_details_screen.dart';
-import 'rating.dart';
 
 class AvailableDoctorCard extends StatelessWidget {
   const AvailableDoctorCard({
@@ -39,47 +36,90 @@ class AvailableDoctorCard extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(20)),
           boxShadow: <BoxShadow>[
             BoxShadow(
-              offset: Offset(4, 4),
+              offset: Offset(2, 2),
               blurRadius: 10,
-              color: Colors.grey.withOpacity(.2),
+              color: Colors.grey.withOpacity(.1),
             ),
             BoxShadow(
-              offset: Offset(-3, 0),
-              blurRadius: 15,
-              color: Colors.grey.withOpacity(.1),
+              offset: Offset(-2, 0),
+              blurRadius: 10,
+              color: Colors.grey.withOpacity(.05),
             )
           ],
         ),
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+          padding: EdgeInsets.symmetric(horizontal: 18, vertical: 12),
           child: ListTile(
             contentPadding: EdgeInsets.all(0),
-            leading: ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(13)),
+            leading: Hero(
+              tag: 'doctor-${model.id}',
               child: Container(
-                height: 55,
-                width: 55,
+                height: 65,
+                width: 65,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: randomColor(),
-                ),
-                child: Image.asset(
-                  model.image,
-                  height: 50,
-                  width: 50,
-                  fit: BoxFit.contain,
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.1),
+                      spreadRadius: 1,
+                      blurRadius: 2,
+                    ),
+                  ],
+                  image: DecorationImage(
+                    image: AssetImage(model.image),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
-            title:
-                Text(model.name, style: TextStyle(fontWeight: FontWeight.bold)),
-            subtitle: Text(
-              model.sector,
-              style: TextStyle(fontWeight: FontWeight.bold),
+            title: Text(model.name,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                )),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 4),
+                Text(
+                  model.sector,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: const Color(0xFF255ED6),
+                    fontSize: 14,
+                  ),
+                ),
+                SizedBox(height: 4),
+                Row(
+                  children: [
+                    Icon(Icons.star, color: Colors.amber, size: 16),
+                    SizedBox(width: 4),
+                    Text("4.8",
+                        style: TextStyle(
+                            fontSize: 13, fontWeight: FontWeight.w500)),
+                    SizedBox(width: 12),
+                    Icon(Icons.people, color: Colors.blue.shade700, size: 16),
+                    SizedBox(width: 4),
+                    Text("${model.patients} patients",
+                        style: TextStyle(
+                            fontSize: 13, fontWeight: FontWeight.w500)),
+                  ],
+                ),
+              ],
             ),
-            trailing: Icon(
-              Icons.keyboard_arrow_right,
-              size: 30,
+            trailing: Container(
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              decoration: BoxDecoration(
+                color: const Color(0xFF255ED6).withOpacity(0.1),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Text(
+                "Book",
+                style: TextStyle(
+                  color: const Color(0xFF255ED6),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
         ));
