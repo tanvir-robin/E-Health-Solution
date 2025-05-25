@@ -1,0 +1,2 @@
+/Users/robin/Documents/Flutter Project/E-Health-Solution/android/app/.cxx/RelWithDebInfo/2n336i1e/armeabi-v7a/CMakeFiles/rebuild_cache.dir
+/Users/robin/Documents/Flutter Project/E-Health-Solution/android/app/.cxx/RelWithDebInfo/2n336i1e/armeabi-v7a/CMakeFiles/edit_cache.dir

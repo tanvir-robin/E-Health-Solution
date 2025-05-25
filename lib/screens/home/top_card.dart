@@ -44,7 +44,8 @@ class HealthcareCard extends StatelessWidget {
             Hero(
               tag: 'health-gif',
               child: ClipRRect(
-                borderRadius: const BorderRadius.horizontal(left: Radius.circular(24)),
+                borderRadius:
+                    const BorderRadius.horizontal(left: Radius.circular(24)),
                 child: ShaderMask(
                   shaderCallback: (Rect bounds) {
                     return LinearGradient(
@@ -56,7 +57,7 @@ class HealthcareCard extends StatelessWidget {
                   blendMode: BlendMode.dstIn,
                   child: Image.asset(
                     gifUrl,
-                    height: 170,
+                    height: 160,
                     width: screenWidth * 0.38, // Adjust width dynamically
                     fit: BoxFit.cover,
                   ),
@@ -72,29 +73,16 @@ class HealthcareCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Row(
-                      children: [
-                        Container(
-                          height: 24,
-                          width: 5,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          title,
-                          style: const TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            letterSpacing: 0.5,
-                          ),
-                        ),
-                      ],
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        letterSpacing: 0.5,
+                      ),
                     ),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 8),
                     Text(
                       description,
                       style: const TextStyle(
@@ -118,16 +106,11 @@ class HealthcareCard extends StatelessWidget {
                           ),
                         ],
                       ),
-                      child: ElevatedButton.icon(
+                      child: ElevatedButton(
                         onPressed: () {},
-                        icon: const Icon(
-                          Icons.health_and_safety_outlined,
-                          size: 20,
-                        ),
-                        label: const Text('Explore'),
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 20.0,
+                            horizontal: 24.0,
                             vertical: 12.0,
                           ),
                           backgroundColor: Colors.white,
@@ -136,6 +119,13 @@ class HealthcareCard extends StatelessWidget {
                             borderRadius: BorderRadius.circular(30),
                           ),
                           elevation: 0,
+                        ),
+                        child: const Text(
+                          'Learn More',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
